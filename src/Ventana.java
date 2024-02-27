@@ -30,7 +30,7 @@ public class Ventana extends JFrame{
 		this.setSize(1000,600);
 		this.setLocationRelativeTo(null);
 
-		this.setTitle("Registro");
+		this.setTitle("Calculadora");
 		this.setResizable(true); 
 		this.setMinimumSize(new Dimension(200,200));
 		
