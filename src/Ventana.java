@@ -4,7 +4,9 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -20,6 +22,7 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 
 public class Ventana extends JFrame{
 
@@ -48,7 +51,8 @@ public class Ventana extends JFrame{
 		
 		//this.admin();
 		this.repaint();
-		this.calculadora();
+		//this.calculadora();
+		this.user();
 
 	}
 		
@@ -353,6 +357,89 @@ public class Ventana extends JFrame{
 	    
 	    this.add(calculadora_panel);
 	}
+	
+	public void user() {
+	    JPanel userPanel = new JPanel();
+	    userPanel.setLayout(null);
+	    userPanel.setBackground(Color.decode("#1617BD"));
+	    userPanel.setSize(this.getWidth(), this.getHeight());
+
+	    JLabel userL = new JLabel("User Login", SwingConstants.CENTER);
+	    userL.setFont(new Font("Arial", Font.BOLD, 40));
+	    userL.setForeground(Color.white);
+	    userL.setBounds(150, 10, 220, 40);
+	    userPanel.add(userL);
+
+	    JPanel loginPanel = new JPanel();
+	    loginPanel.setLayout(null);
+	    loginPanel.setBackground(Color.decode("#1314AD"));
+	    loginPanel.setBounds(50, 100, 500, 400); 
+	    loginPanel.setBorder(BorderFactory.createLineBorder(Color.white));
+	    userPanel.add(loginPanel);
+
+	    JLabel accountLabel = new JLabel("My Account", SwingConstants.CENTER);
+	    accountLabel.setFont(new Font("Arial", Font.BOLD, 40));
+	    accountLabel.setForeground(Color.decode("#D4AF37"));
+	    accountLabel.setBounds(110, 20, 300, 40);
+	    loginPanel.add(accountLabel);
+
+	    JLabel usernameLabel = new JLabel("Enter Your Username");
+	    usernameLabel.setFont(new Font("Arial", Font.BOLD, 20));
+	    usernameLabel.setForeground(Color.white);
+	    usernameLabel.setBounds(50, 100, 300, 40);
+	    loginPanel.add(usernameLabel);
+
+	    JLabel logo1 = new JLabel();
+	    logo1.setIcon(new ImageIcon(getClass().getResource("icons8-user-50.png")));
+	    logo1.setBounds(50, 150, 50, 50);
+	    loginPanel.add(logo1);
+
+	    JTextField usernameField = new JTextField();
+	    usernameField.setBounds(110, 160, 350, 30);
+	    loginPanel.add(usernameField);
+
+	    JLabel passwordLabel = new JLabel("Enter Your Password");
+	    passwordLabel.setFont(new Font("Arial", Font.BOLD, 20));
+	    passwordLabel.setForeground(Color.white);
+	    passwordLabel.setBounds(50, 220, 300, 40);
+	    loginPanel.add(passwordLabel);
+
+	    JLabel logo2 = new JLabel();
+	    logo2.setIcon(new ImageIcon(getClass().getResource("icons8-padlock-48.png")));
+	    logo2.setBounds(50, 270, 50, 50);
+	    loginPanel.add(logo2);
+
+	    JPasswordField passwordField = new JPasswordField("PASSWORD");
+	    passwordField.setForeground(Color.gray);
+	    passwordField.setBounds(110, 280, 350, 30);
+	    passwordField.setBackground(Color.white);
+	    passwordField.setEchoChar((char)0); 
+	    loginPanel.add(passwordField);
+
+        JButton loginButton = new RoundedButton("Login");
+        loginButton.setFont(new Font("Arial", Font.BOLD, 20));
+        loginButton.setBounds(200, 350, 180, 30);
+        loginButton.setBackground(Color.decode("#D4AF37"));
+        loginPanel.add(loginButton);
+        
+	    JLabel noAccountLabel = new JLabel("Don't have an account?");
+	    noAccountLabel.setFont(new Font("Arial", Font.BOLD, 16));
+	    noAccountLabel.setForeground(Color.white);
+	    noAccountLabel.setBounds(180, 520, 200, 20); 
+	    noAccountLabel.setBackground(Color.white);
+	    userPanel.add(noAccountLabel);
+
+	    JButton signUpButton = new RoundedButton("Sign Up");
+	    loginButton.setFont(new Font("Arial", Font.BOLD, 20));
+	    signUpButton.setBounds(210, 550, 120, 30); 
+	    signUpButton.setBackground(Color.decode("#D4AF37"));
+	    userPanel.add(signUpButton);
+
+	    this.add(userPanel);
+	    this.repaint();
+	}
+
+
 
 
 
