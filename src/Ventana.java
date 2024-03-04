@@ -1,8 +1,12 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -30,12 +34,12 @@ public class Ventana extends JFrame{
 		
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(1000,600);
+		this.setSize(800, 600);
 		this.setLocationRelativeTo(null);
 
 		this.setTitle("Calculadora");
 		this.setResizable(true); 
-		this.setMinimumSize(new Dimension(200,200));
+        this.setMinimumSize(new Dimension(500, 400)); 
 		
 		
 		this.setLayout(new BorderLayout());
@@ -52,7 +56,8 @@ public class Ventana extends JFrame{
 		//this.admin();
 		this.repaint();
 		//this.calculadora();
-		this.user();
+		//this.user();
+		this.interfazLayout();
 
 	}
 		
@@ -423,7 +428,7 @@ public class Ventana extends JFrame{
         loginPanel.add(loginButton);
         
 	    JLabel noAccountLabel = new JLabel("Don't have an account?");
-	    noAccountLabel.setFont(new Font("Arial", Font.BOLD, 16));
+	    noAccountLabel.setFont(new Font("Arial", Font.BOLD, 24));
 	    noAccountLabel.setForeground(Color.white);
 	    noAccountLabel.setBounds(180, 520, 200, 20); 
 	    noAccountLabel.setBackground(Color.white);
@@ -438,6 +443,82 @@ public class Ventana extends JFrame{
 	    this.add(userPanel);
 	    this.repaint();
 	}
+	
+    public void interfazLayout() {
+    	JPanel mainPanel = new JPanel(new BorderLayout());
+
+    	JPanel northPanel = new JPanel();
+    	northPanel.setBackground(Color.WHITE);
+    	JLabel interestLabel = new JLabel("Interés");
+    	interestLabel.setFont(new Font("Arial", Font.BOLD, 16));
+    	interestLabel.setForeground(Color.RED); 
+    	northPanel.add(interestLabel); 
+    	mainPanel.add(northPanel, BorderLayout.NORTH);
+
+    	JPanel eastPanel = new JPanel();
+    	eastPanel.setBackground(Color.WHITE);
+    	eastPanel.setPreferredSize(new Dimension(50, 0));
+    	JPanel westPanel = new JPanel();
+    	westPanel.setBackground(Color.WHITE);
+    	westPanel.setPreferredSize(new Dimension(50, 0)); 
+
+    	JPanel greenPanel = new JPanel(new GridLayout(5, 2, 5, 5));
+    	greenPanel.setBackground(Color.GREEN);
+    	greenPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+    	JLabel capitalLabel = new JLabel("Capital:");
+    	JTextField capitalField = new JTextField("1500");
+    	JLabel tiempoLabel = new JLabel("Tiempo:");
+    	JTextField tiempoField = new JTextField("2");
+    	JLabel interesLabel = new JLabel("Tasa de Interés:");
+    	JTextField interesField = new JTextField("0.1");
+
+    	JButton calculateButton = new JButton("Calcular");
+    	calculateButton.setBackground(Color.BLACK); 
+    	calculateButton.setForeground(Color.WHITE); 
+    	ImageIcon calculateIcon = new ImageIcon(getClass().getResource("diskette.png")); 
+    	calculateButton.setIcon(new ImageIcon(calculateIcon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH))); 
+    	JButton cancelButton = new JButton("Cancelar");
+    	cancelButton.setBackground(Color.BLACK); 
+    	cancelButton.setForeground(Color.WHITE); 
+    	ImageIcon cancelIcon = new ImageIcon(getClass().getResource("close.png")); 
+    	cancelButton.setIcon(new ImageIcon(cancelIcon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH)));
+
+    	greenPanel.add(capitalLabel);
+    	greenPanel.add(capitalField);
+    	greenPanel.add(tiempoLabel);
+    	greenPanel.add(tiempoField);
+    	greenPanel.add(interesLabel);
+    	greenPanel.add(interesField);
+    	greenPanel.add(calculateButton);
+    	greenPanel.add(cancelButton);
+
+    	JPanel redPanel = new JPanel(new GridLayout(2, 2, 5, 5));
+    	redPanel.setBackground(Color.RED);
+    	redPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
+
+    	JLabel interesRLabel = new JLabel("Interés:");
+    	JTextField interesRField = new JTextField("315.0000000002");
+    	JLabel montoLabel = new JLabel("Monto:");
+    	JTextField montoField = new JTextField("1812.0000000002");
+
+    	redPanel.add(interesRLabel);
+    	redPanel.add(interesRField);
+    	redPanel.add(montoLabel);
+    	redPanel.add(montoField);
+
+    	mainPanel.add(eastPanel, BorderLayout.EAST);
+    	mainPanel.add(westPanel, BorderLayout.WEST);
+    	mainPanel.add(greenPanel, BorderLayout.CENTER);
+    	mainPanel.add(redPanel, BorderLayout.SOUTH);
+
+    	this.add(mainPanel);
+    	this.pack(); 
+    	this.setLocationRelativeTo(null); 
+    	this.setVisible(true); 
+    }
+
+
 
 
 
