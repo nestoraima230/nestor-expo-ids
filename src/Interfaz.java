@@ -27,7 +27,7 @@ public class Interfaz extends JFrame {
         add(mainPanel, BorderLayout.CENTER);
 
         JPanel DatosPanel = new JPanel(new GridLayout(6, 2, 10, 10));
-        DatosPanel.setBackground(Color.BLUE);
+        DatosPanel.setBackground(Color.decode("#0D77DA")); 
         DatosPanel.setBorder(BorderFactory.createTitledBorder(new LineBorder(Color.WHITE, 2), "Datos Generales", 0, 0, new Font("Arial", Font.BOLD, 14), Color.WHITE));
         mainPanel.add(DatosPanel, BorderLayout.WEST);
 
@@ -57,7 +57,7 @@ public class Interfaz extends JFrame {
         DatosPanel.add(new JComboBox(new String[]{"Perú", "Colombia", "Chile", "Argentina", "México","Brasil"}));
         
         JPanel profilePanel = new JPanel(new BorderLayout());
-        profilePanel.setBackground(new Color(255, 102, 102));
+        profilePanel.setBackground(Color.decode("#C64679")); 
         profilePanel.setBorder(BorderFactory.createTitledBorder(new LineBorder(Color.WHITE, 2), "Perfil del Usuario", 0, 0, new Font("Arial", Font.BOLD, 14), Color.WHITE));
         mainPanel.add(profilePanel, BorderLayout.EAST);
         
@@ -77,33 +77,33 @@ public class Interfaz extends JFrame {
         showPhotoCheckbox.setOpaque(false);
         checkboxPanel.add(showPhotoCheckbox);
 
-        JCheckBox showBirthdateCheckbox = new JCheckBox("Mostrar Fecha de Nacimiento", true);
-        showBirthdateCheckbox.setOpaque(false);
-        checkboxPanel.add(showBirthdateCheckbox);
+        JCheckBox cumpleañosCheckbox = new JCheckBox("Mostrar Fecha de Nacimiento", true);
+        cumpleañosCheckbox.setOpaque(false);
+        checkboxPanel.add(cumpleañosCheckbox);
 
 
-        JPanel optionalAndButtonPanel = new JPanel(new BorderLayout());
-        optionalAndButtonPanel.setBackground(Color.WHITE);
-        mainPanel.add(optionalAndButtonPanel, BorderLayout.SOUTH);
+        JPanel SouthPanel = new JPanel(new BorderLayout());
+        SouthPanel.setBackground(Color.WHITE);
+        mainPanel.add(SouthPanel, BorderLayout.SOUTH);
 
-        JPanel optionalDataPanel = new JPanel(new BorderLayout());
-        optionalDataPanel.setBackground(Color.RED);
-        optionalDataPanel.setBorder(BorderFactory.createTitledBorder(new LineBorder(Color.WHITE, 2), "Datos Opcionales", 0, 0, new Font("Arial", Font.BOLD, 14), Color.WHITE));
-        optionalAndButtonPanel.add(optionalDataPanel, BorderLayout.WEST);
+        JPanel optionalDataPane = new JPanel(new BorderLayout());
+        optionalDataPane.setBackground(Color.RED);
+        optionalDataPane.setBorder(BorderFactory.createTitledBorder(new LineBorder(Color.WHITE, 2), "Datos Opcionales", 0, 0, new Font("Arial", Font.BOLD, 14), Color.WHITE));
+        SouthPanel.add(optionalDataPane, BorderLayout.WEST);
 
-        JPanel optionalDataInnerPanel = new JPanel(new GridLayout(2, 1, 10, 10));
-        optionalDataInnerPanel.setBackground(Color.RED);
-        optionalDataPanel.add(optionalDataInnerPanel, BorderLayout.NORTH);
-        optionalDataInnerPanel.add(new JLabel("Descripción:", SwingConstants.RIGHT));
+        JPanel descriptionPanel = new JPanel(new GridLayout(2, 1, 10, 10));
+        descriptionPanel.setBackground(Color.RED);
+        optionalDataPane.add(descriptionPanel, BorderLayout.NORTH);
+        descriptionPanel.add(new JLabel("Descripción:", SwingConstants.LEFT));
         JTextArea descriptionArea = new JTextArea("Hola amigos de youtube gracias por compartir mis videos.");
-        optionalDataInnerPanel.add(new JScrollPane(descriptionArea));
+        descriptionPanel.add(new JScrollPane(descriptionArea));
 
-        optionalDataPanel.add(new JLabel("Preferencias:", SwingConstants.RIGHT), BorderLayout.WEST);
-        optionalDataPanel.add(new JComboBox(new String[]{"Cantar", "Escuchar Música", "Leer", "Deportes", "Otros"}), BorderLayout.CENTER);
+        optionalDataPane.add(new JLabel("Preferencias:", SwingConstants.RIGHT), BorderLayout.WEST);
+        optionalDataPane.add(new JComboBox(new String[]{"Cantar", "Escuchar Música", "Leer", "Deportes", "Otros"}), BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setBackground(Color.BLUE);
-        optionalAndButtonPanel.add(buttonPanel);
+        buttonPanel.setBackground(Color.decode("#0F5698")); 
+        SouthPanel.add(buttonPanel);
 
         JButton nuevoButton = new JButton("Nuevo");
         nuevoButton.setBackground(Color.BLACK);
@@ -119,6 +119,8 @@ public class Interfaz extends JFrame {
         salirButton.setBackground(Color.BLACK);
         salirButton.setForeground(Color.WHITE);
         buttonPanel.add(salirButton);
+        
+        this.pack();
 
     }
 }
