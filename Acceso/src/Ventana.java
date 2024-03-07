@@ -1,8 +1,22 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -18,6 +32,7 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 
 public class Ventana extends JFrame{
 
@@ -25,15 +40,15 @@ public class Ventana extends JFrame{
 		
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(1000,600);
+		this.setSize(800, 600);
 		this.setLocationRelativeTo(null);
 
-		this.setTitle("Registro");
+		this.setTitle("Calculadora");
 		this.setResizable(true); 
-		this.setMinimumSize(new Dimension(200,200));
+        this.setMinimumSize(new Dimension(500, 400)); 
 		
 		
-		this.setLayout(null);
+		this.setLayout(new BorderLayout());
 		
 		this.loadComponents();
 	}
@@ -44,11 +59,16 @@ public class Ventana extends JFrame{
 		
 		//this.registro();		
 		
-		this.admin();
+		//this.admin();
 		this.repaint();
+		//this.calculadora();
+		//this.user();
+		//this.interfazLayout();
 
 	}
 		
+
+
 	public void login() {
 		
 			JPanel login = new JPanel();
@@ -264,8 +284,307 @@ public class Ventana extends JFrame{
 		
 		this.add(admin_Panel);
 	}
+	
+	public void calculadora() {
+	    JPanel calculadora_panel = new JPanel();
+	    calculadora_panel.setLayout(null);
+
+	    JTextField textField = new JTextField("0");
+	    textField.setHorizontalAlignment(JTextField.RIGHT);
+	    textField.setFont(new Font("Arial", Font.BOLD, 24));
+	    textField.setBounds(10, 10, 270, 50);
+	    calculadora_panel.add(textField);
+
+	    JButton boton9 = new JButton("9");
+	    boton9.setFont(new Font("Arial", Font.BOLD, 20));
+	    boton9.setBounds(140, 70, 60, 60);
+	    calculadora_panel.add(boton9);
+
+	    JButton boton4 = new JButton("4");
+	    boton4.setFont(new Font("Arial", Font.BOLD, 20));
+	    boton4.setBounds(10, 135, 60, 60);
+	    calculadora_panel.add(boton4);
+
+	    JButton boton5 = new JButton("5");
+	    boton5.setFont(new Font("Arial", Font.BOLD, 20));
+	    boton5.setBounds(75, 135, 60, 60);
+	    calculadora_panel.add(boton5);
+
+	    JButton boton6 = new JButton("6");
+	    boton6.setFont(new Font("Arial", Font.BOLD, 20));
+	    boton6.setBounds(140, 135, 60, 60);
+	    calculadora_panel.add(boton6);
+
+	    JButton boton1 = new JButton("1");
+	    boton1.setFont(new Font("Arial", Font.BOLD, 20));
+	    boton1.setBounds(10, 200, 60, 60);
+	    calculadora_panel.add(boton1);
+
+	    JButton boton2 = new JButton("2");
+	    boton2.setFont(new Font("Arial", Font.BOLD, 20));
+	    boton2.setBounds(75, 200, 60, 60);
+	    calculadora_panel.add(boton2);
+
+	    JButton boton3 = new JButton("3");
+	    boton3.setFont(new Font("Arial", Font.BOLD, 20));
+	    boton3.setBounds(140, 200, 60, 60);
+	    calculadora_panel.add(boton3);
+
+	    JButton boton0 = new JButton("0");
+	    boton0.setFont(new Font("Arial", Font.BOLD, 20));
+	    boton0.setBounds(10, 265, 60, 60);
+	    calculadora_panel.add(boton0);
+
+	    JButton botonPunto = new JButton(".");
+	    botonPunto.setFont(new Font("Arial", Font.BOLD, 20));
+	    botonPunto.setBounds(75, 265, 60, 60);
+	    calculadora_panel.add(botonPunto);
+
+	    JButton botonMenos = new JButton("-");
+	    botonMenos.setFont(new Font("Arial", Font.BOLD, 20));
+	    botonMenos.setBounds(205, 200, 75, 60);
+	    calculadora_panel.add(botonMenos);
+
+	    JButton botonMultiplicar = new JButton("*");
+	    botonMultiplicar.setFont(new Font("Arial", Font.BOLD, 20));
+	    botonMultiplicar.setBounds(205, 135, 75, 60);
+	    calculadora_panel.add(botonMultiplicar);
+
+	    JButton botonDividir = new JButton("/");
+	    botonDividir.setFont(new Font("Arial", Font.BOLD, 20));
+	    botonDividir.setBounds(205, 70, 75, 60);
+	    calculadora_panel.add(botonDividir);
+	    
+	    JButton botonMas = new JButton("+");
+	    botonMas.setFont(new Font("Arial", Font.BOLD, 20));
+	    botonMas.setBounds(205, 265, 75, 60);
+	    calculadora_panel.add(botonMas);
+
+	    JButton botonIgual = new JButton("=");
+	    botonIgual.setFont(new Font("Arial", Font.BOLD, 20));
+	    botonIgual.setBounds(140, 265, 60, 60);
+	    calculadora_panel.add(botonIgual);
+
+	    
+	    this.add(calculadora_panel);
+	}
+	
+	public void user() {
+	    JPanel userPanel = new JPanel();
+	    userPanel.setLayout(null);
+	    userPanel.setBackground(Color.decode("#1617BD"));
+	    userPanel.setSize(this.getWidth(), this.getHeight());
+
+	    JLabel userL = new JLabel("User Login", SwingConstants.CENTER);
+	    userL.setFont(new Font("Arial", Font.BOLD, 40));
+	    userL.setForeground(Color.white);
+	    userL.setBounds(150, 10, 220, 40);
+	    userPanel.add(userL);
+
+	    JPanel loginPanel = new JPanel();
+	    loginPanel.setLayout(null);
+	    loginPanel.setBackground(Color.decode("#1314AD"));
+	    loginPanel.setBounds(50, 100, 500, 400); 
+	    loginPanel.setBorder(BorderFactory.createLineBorder(Color.white));
+	    userPanel.add(loginPanel);
+
+	    JLabel accountLabel = new JLabel("My Account", SwingConstants.CENTER);
+	    accountLabel.setFont(new Font("Arial", Font.BOLD, 40));
+	    accountLabel.setForeground(Color.decode("#D4AF37"));
+	    accountLabel.setBounds(110, 20, 300, 40);
+	    loginPanel.add(accountLabel);
+
+	    JLabel usernameLabel = new JLabel("Enter Your Username");
+	    usernameLabel.setFont(new Font("Arial", Font.BOLD, 20));
+	    usernameLabel.setForeground(Color.white);
+	    usernameLabel.setBounds(50, 100, 300, 40);
+	    loginPanel.add(usernameLabel);
+
+	    JLabel logo1 = new JLabel();
+	    logo1.setIcon(new ImageIcon(getClass().getResource("icons8-user-50.png")));
+	    logo1.setBounds(50, 150, 50, 50);
+	    loginPanel.add(logo1);
+
+	    JTextField usernameField = new JTextField();
+	    usernameField.setBounds(110, 160, 350, 30);
+	    loginPanel.add(usernameField);
+
+	    JLabel passwordLabel = new JLabel("Enter Your Password");
+	    passwordLabel.setFont(new Font("Arial", Font.BOLD, 20));
+	    passwordLabel.setForeground(Color.white);
+	    passwordLabel.setBounds(50, 220, 300, 40);
+	    loginPanel.add(passwordLabel);
+
+	    JLabel logo2 = new JLabel();
+	    logo2.setIcon(new ImageIcon(getClass().getResource("icons8-padlock-48.png")));
+	    logo2.setBounds(50, 270, 50, 50);
+	    loginPanel.add(logo2);
+
+	    JPasswordField passwordField = new JPasswordField("PASSWORD");
+	    passwordField.setForeground(Color.gray);
+	    passwordField.setBounds(110, 280, 350, 30);
+	    passwordField.setBackground(Color.white);
+	    passwordField.setEchoChar((char)0); 
+	    loginPanel.add(passwordField);
+
+        JButton loginButton = new RoundedButton("Login");
+        loginButton.setFont(new Font("Arial", Font.BOLD, 20));
+        loginButton.setBounds(200, 350, 180, 30);
+        loginButton.setBackground(Color.decode("#D4AF37"));
+        loginPanel.add(loginButton);
+        
+	    JLabel noAccountLabel = new JLabel("Don't have an account?");
+	    noAccountLabel.setFont(new Font("Arial", Font.BOLD, 24));
+	    noAccountLabel.setForeground(Color.white);
+	    noAccountLabel.setBounds(180, 520, 200, 20); 
+	    noAccountLabel.setBackground(Color.white);
+	    userPanel.add(noAccountLabel);
+
+	    JButton signUpButton = new RoundedButton("Sign Up");
+	    loginButton.setFont(new Font("Arial", Font.BOLD, 20));
+	    signUpButton.setBounds(210, 550, 120, 30); 
+	    signUpButton.setBackground(Color.decode("#D4AF37"));
+	    userPanel.add(signUpButton);
+
+	    this.add(userPanel);
+	    this.repaint();
+	}
+	
+    public void interfazLayout() {
+    	JPanel mainPanel = new JPanel(new BorderLayout());
+
+    	JPanel northPanel = new JPanel();
+    	northPanel.setBackground(Color.WHITE);
+    	JLabel interestLabel = new JLabel("Interés");
+    	interestLabel.setFont(new Font("Arial", Font.BOLD, 16));
+    	interestLabel.setForeground(Color.RED); 
+    	northPanel.add(interestLabel); 
+    	mainPanel.add(northPanel, BorderLayout.NORTH);
+
+    	JPanel eastPanel = new JPanel();
+    	eastPanel.setBackground(Color.WHITE);
+    	eastPanel.setPreferredSize(new Dimension(50, 0));
+    	JPanel westPanel = new JPanel();
+    	westPanel.setBackground(Color.WHITE);
+    	westPanel.setPreferredSize(new Dimension(50, 0)); 
+
+    	JPanel greenPanel = new JPanel(new GridLayout(5, 2, 5, 5));
+    	greenPanel.setBackground(Color.GREEN);
+    	greenPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+    	JLabel capitalLabel = new JLabel("Capital:");
+    	JTextField capitalField = new JTextField("1500");
+    	JLabel tiempoLabel = new JLabel("Tiempo:");
+    	JTextField tiempoField = new JTextField("2");
+    	JLabel interesLabel = new JLabel("Tasa de Interés:");
+    	JTextField interesField = new JTextField("0.1");
+
+    	JButton calculateButton = new JButton("Calcular");
+    	calculateButton.setBackground(Color.BLACK); 
+    	calculateButton.setForeground(Color.WHITE); 
+    	ImageIcon calculateIcon = new ImageIcon(getClass().getResource("diskette.png")); 
+    	calculateButton.setIcon(new ImageIcon(calculateIcon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH))); 
+    	JButton cancelButton = new JButton("Cancelar");
+    	cancelButton.setBackground(Color.BLACK); 
+    	cancelButton.setForeground(Color.WHITE); 
+    	ImageIcon cancelIcon = new ImageIcon(getClass().getResource("close.png")); 
+    	cancelButton.setIcon(new ImageIcon(cancelIcon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH)));
+
+    	greenPanel.add(capitalLabel);
+    	greenPanel.add(capitalField);
+    	greenPanel.add(tiempoLabel);
+    	greenPanel.add(tiempoField);
+    	greenPanel.add(interesLabel);
+    	greenPanel.add(interesField);
+    	greenPanel.add(calculateButton);
+    	greenPanel.add(cancelButton);
+
+    	JPanel redPanel = new JPanel(new GridLayout(2, 2, 5, 5));
+    	redPanel.setBackground(Color.RED);
+    	redPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
+
+    	JLabel interesRLabel = new JLabel("Interés:");
+    	JTextField interesRField = new JTextField("315.0000000002");
+    	JLabel montoLabel = new JLabel("Monto:");
+    	JTextField montoField = new JTextField("1812.0000000002");
+
+    	redPanel.add(interesRLabel);
+    	redPanel.add(interesRField);
+    	redPanel.add(montoLabel);
+    	redPanel.add(montoField);
+
+    	mainPanel.add(eastPanel, BorderLayout.EAST);
+    	mainPanel.add(westPanel, BorderLayout.WEST);
+    	mainPanel.add(greenPanel, BorderLayout.CENTER);
+    	mainPanel.add(redPanel, BorderLayout.SOUTH);
+
+    	this.add(mainPanel);
+    	this.pack(); 
+    	this.setLocationRelativeTo(null); 
+    	this.setVisible(true); 
+    }
+    
+    @Override
+    public void paint(Graphics g) {
+    	super.paint(g);
+    	
+    	Graphics2D g2d = (Graphics2D) g;
+    	g2d.drawArc(100, 100, 100, 200, 0, 180);
+    	
+    	g2d.setColor(Color.green);
+    	
+    	g2d.drawLine(0,0 ,500 ,500 );
+    	
+    	g2d.drawOval(150, 200, 80, 80);
+    	
+    	g2d.setColor(Color.yellow);
+
+    	int xS [] = {225,150,300,225};
+    	int yS [] = {50,150,150,50};
+    	
+    	g2d.drawPolygon(xS, yS, 4);
+    	g2d.drawRect(300, 300, 200, 150);
+    	
+    	g2d.drawRoundRect(350,350,200,200,15,15);
+    	
+    	g2d.drawString("Hola", 400, 140);
+    	g2d.setFont(new Font("Agency FB", Font.BOLD, 40));
+    	
+    	g2d.fillArc(500, 100, 200, 200, 95, 200);
+    	
+    	g2d.fillOval(180, 230, 80, 80);
+    	
+    	int xS2 [] = {255,180,380,255};
+    	int yS2 [] = {50,180,180,30};
+    	
+    	g2d.fillPolygon(xS, yS, 4);
+    	
+    	g2d.setColor(Color.BLACK);
+    	g2d.fillRect(500,200,300,100);
+    	
+    	
+    	g2d.clearRect(650, 350, 100, 50);
+    	
+    	
+    	
+    	try {
+    		BufferedImage imagen = ImageIO.read(new File("src/close.png"));
+    		g2d.drawImage(imagen, 100, 200, null);
+    	}catch (IOException e) {
+    		e.printStackTrace();
+    	}
+    	
+    }
+
+
+
+
+
+
+
+
+}		
+
 
 		
 	
-
-}
