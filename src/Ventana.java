@@ -3,11 +3,19 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -28,7 +36,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
-public class Ventana extends JFrame{
+public class Ventana extends JFrame {
 
 	public Ventana() {
 		
@@ -37,7 +45,7 @@ public class Ventana extends JFrame{
 		this.setSize(800, 600);
 		this.setLocationRelativeTo(null);
 
-		this.setTitle("Calculadora");
+		this.setTitle("Casa");
 		this.setResizable(true); 
         this.setMinimumSize(new Dimension(500, 400)); 
 		
@@ -57,7 +65,8 @@ public class Ventana extends JFrame{
 		this.repaint();
 		//this.calculadora();
 		//this.user();
-		this.interfazLayout();
+		//this.interfazLayout();
+
 
 	}
 		
@@ -516,6 +525,138 @@ public class Ventana extends JFrame{
     	this.pack(); 
     	this.setLocationRelativeTo(null); 
     	this.setVisible(true); 
+    }
+    
+    @Override
+    public void paint(Graphics g) {
+    	super.paint(g);
+    	
+    	Graphics2D g2d = (Graphics2D) g;
+    	/*g2d.drawArc(100, 100, 100, 200, 0, 180);
+    	
+    	g2d.setColor(Color.green);
+    	
+    	g2d.drawLine(0,0 ,500 ,500 );
+    	
+    	g2d.drawOval(150, 200, 80, 80);
+    	
+    	g2d.setColor(Color.yellow);
+
+    	int xS [] = {225,150,300,225};
+    	int yS [] = {50,150,150,50};
+    	
+    	g2d.drawPolygon(xS, yS, 4);
+    	g2d.drawRect(300, 300, 200, 150);
+    	
+    	g2d.drawRoundRect(350,350,200,200,15,15);
+    	
+    	g2d.drawString("Hola", 400, 140);
+    	g2d.setFont(new Font("Agency FB", Font.BOLD, 40));
+    	
+    	g2d.fillArc(500, 100, 200, 200, 95, 200);
+    	
+    	g2d.fillOval(180, 230, 80, 80);
+    	
+    	int xS2 [] = {255,180,380,255};
+    	int yS2 [] = {50,180,180,30};
+    	
+    	g2d.fillPolygon(xS, yS, 4);
+    	
+    	g2d.setColor(Color.BLACK);
+    	g2d.fillRect(500,200,300,100);
+    	
+    	
+    	g2d.clearRect(650, 350, 100, 50);
+    	*/
+    	
+    	g2d.setColor(Color.decode("#dbfff8")); 
+    	g2d.fillRect(0, 0, 800, 700);
+
+    	g2d.setColor(Color.YELLOW);
+    	g2d.fillOval(300, 50, 50, 50); 
+    	
+       g2d.setColor(Color.decode("#e3c874"));
+    	for (int x = 0; x <= 400; x += 40) {
+    	    g2d.fillRect(x, 460, 20, 70); 
+    	}
+    	
+    	g2d.setColor(Color.decode("#bea760"));
+    	g2d.fillRect(0, 460, 400, 5);  
+    	g2d.fillRect(0, 480, 400, 5);  
+    	g2d.fillRect(0, 500, 400, 5);  
+    	g2d.fillRect(0, 520, 400, 5);  
+    	g2d.fillRect(0, 540, 400, 5);  
+    	g2d.fillRect(0, 560, 400, 5);  
+    	g2d.fillRect(0, 580, 400, 5);  
+    	g2d.fillRect(0, 600, 400, 5);  
+    	
+    	for (int x = 0; x <= 400; x += 40) {
+    	    g2d.fillRect(x, 455, 20, 5);
+    	}
+
+
+        
+    	int[] xPoints = {100, 140, 300};
+    	int[] yPoints = {360, 260, 360};
+    	g2d.setColor(Color.RED);
+    	g2d.fillPolygon(xPoints, yPoints, 3);
+
+    	g2d.setColor(Color.decode("#e8d34d"));
+    	g2d.fillRect(110, 360, 180, 150);
+
+    	g2d.setColor(Color.decode("#a8e7dc"));
+    	g2d.fillRect(220, 380, 50, 50);
+
+    	g2d.setColor(Color.decode("#644605"));
+    	g2d.fillRect(143, 430, 50, 80);
+
+    	g2d.setColor(Color.GRAY);
+    	g2d.fillRect(250, 260, 30, 100);
+    	g2d.setColor(Color.DARK_GRAY);
+    	g2d.fillRect(240, 250, 50, 10);
+
+    	g2d.setColor(Color.decode("#7a7a7a"));
+    	g2d.fillRect(110, 510, 180, 20);
+
+    	g2d.setColor(Color.decode("#233b1e"));
+    	g2d.fillRect(0, 530, 500, 50); 
+    	
+
+    	g2d.setColor(Color.decode("#4c8340"));
+    	g2d.fillRect(0, 580, 500, 50);
+    	
+    	g2d.setColor(Color.decode("#fffcc9"));
+    	g2d.fillRect(0, 630, 500, 30);    
+    	
+    	g2d.setColor(Color.decode("#B2A374"));
+    	g2d.fillRect(0, 660, 500, 20); 
+    	
+    	g2d.setColor(Color.decode("#a27858"));
+    	g2d.fillRect(0, 680, 500, 20);        
+
+    }
+
+
+
+
+    	/*try {
+    		BufferedImage imagen = ImageIO.read(new File("src/close.png"));
+    		g2d.drawImage(imagen, 100, 200, null);
+    	}catch (IOException e) {
+    		e.printStackTrace();
+    	}
+    	*/
+    
+    
+    public void casa (Graphics g) {
+    	 super.paint(g);
+    	 
+    	 Graphics2D g2d = (Graphics2D) g;
+    	 
+     	int xS2 [] = {255,180,380,255};
+     	int yS2 [] = {50,180,180,30};
+     	
+     	g2d.fillPolygon(xS2, yS2, 4);
     }
 
 
