@@ -30,6 +30,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
@@ -633,35 +634,46 @@ public class Ventana extends JFrame {
         userPanel.setSize(this.getWidth(), this.getHeight());
 
         JButton botonPresioname = new JButton("Presioname");
-        botonPresioname.setBounds(100, 50, 150, 30); 
+        botonPresioname.setBounds(100, 50, 150, 30);
         userPanel.add(botonPresioname);
 
         botonPresioname.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JButton nuevoBoton = new JButton("Nuevo Botón");
+                JButton nuevoBoton = new JButton(getRandomColor()); 
                 Random rand = new Random();
 
-                int x = rand.nextInt(100) + 50;
-                int y = rand.nextInt(100) + 50;
-                int ancho = rand.nextInt(100) + 50; 
-                int alto = rand.nextInt(50) + 50;   
-                nuevoBoton.setBounds(x, y, ancho, alto); 
+                int x = rand.nextInt(1000) + 50;
+                int y = rand.nextInt(1000) + 50;
+                int ancho = rand.nextInt(100) + 50;
+                int alto = rand.nextInt(50) + 50;
+                nuevoBoton.setBounds(x, y, ancho, alto);
 
                 Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
                 nuevoBoton.setBackground(color);
 
-                userPanel.add(nuevoBoton); 
-                repaint(); 
+                nuevoBoton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        JOptionPane.showMessageDialog(null, "Color " + nuevoBoton.getText());
+                    }
+                });
+
+                userPanel.add(nuevoBoton);
+                repaint();
             }
         });
 
         this.add(userPanel);
-        repaint(); 
+        repaint();
     }
 
+    private String getRandomColor() {
+        Random rand = new Random();
+        Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
+        return String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
+    }
 }
-
 
  
 
