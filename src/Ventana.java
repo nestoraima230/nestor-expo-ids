@@ -12,6 +12,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -46,31 +47,41 @@ import java.io.File;
 import javax.imageio.ImageIO;
 
 
-public class Ventana extends JFrame {
+public class Ventana extends JFrame implements MouseListener{
 
     private Image backgroundImage;
+    private JPanel addBtnPanel;
+    private String[] palabras = {"Gato", "Perro", "Casa", "Árbol", "Montaña", "Agua", "Sol", "Luna", "Estrella", "Mar"};
 
-	public Ventana() {
-		
-		this.setVisible(true);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(800, 500);
-		this.setLocationRelativeTo(null);
+    public Ventana() {
 
-		this.setTitle("Super Mario Bros 3");
-		this.setResizable(true); 
-        this.setMinimumSize(new Dimension(500, 400)); 
-		
+        this.setVisible(true);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(1000, 500);
+        this.setLocationRelativeTo(null);
+
+        this.setTitle("Mi Ventana");
+        this.setResizable(true);
+        this.setMinimumSize(new Dimension(500, 400));
+
         try {
             backgroundImage = ImageIO.read(new File("src\\839679_super-mario-world-minimal-wallpapers-by-nicolasnsane-on-deviantart_3840x2160_h.png"));
         } catch (Exception e) {
             e.printStackTrace();
         }
-		
-		this.setLayout(new BorderLayout());
-		
-		this.loadComponents();
-	}
+
+        addBtnPanel = new JPanel(); 
+        addBtnPanel.setLayout(null);
+        addBtnPanel.setBackground(Color.decode("#6a5acd"));
+        addBtnPanel.setSize(this.getWidth(), this.getHeight());
+
+        this.add(addBtnPanel);
+
+        this.setLayout(new BorderLayout());
+        addBtnPanel.addMouseListener(this);
+
+        this.loadComponents();
+    }
 	
 	public void loadComponents() {
 		
@@ -84,7 +95,8 @@ public class Ventana extends JFrame {
 		//this.user();
 		//this.interfazLayout();
 		//this.paint(getGraphics());
-		this.listener();
+		//this.listener();
+		this.agregarBoton(100,200);
 
 
 	}
@@ -673,6 +685,51 @@ public class Ventana extends JFrame {
         Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
         return String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
     }
+    
+    
+    public void agregarBoton(int x, int y) {
+        Random rand = new Random();
+
+        JButton boton = new JButton(palabras[rand.nextInt(palabras.length)]);
+        int ancho = rand.nextInt(100) + 50;
+        int alto = rand.nextInt(50) + 50;
+        boton.setBounds(x, y, ancho, alto);
+
+        Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
+        boton.setBackground(color);
+
+        boton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "Palabra: " + boton.getText());
+            }
+        });
+
+        addBtnPanel.add(boton);
+        addBtnPanel.revalidate();
+        addBtnPanel.repaint();
+    }
+    
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        int x = e.getX();
+        int y = e.getY();
+        agregarBoton(x, y);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    	
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {}
+
+    @Override
+    public void mouseEntered(MouseEvent e) {}
+
+    @Override
+    public void mouseExited(MouseEvent e) {}
 }
 
  
