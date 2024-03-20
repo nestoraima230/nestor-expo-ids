@@ -1,6 +1,7 @@
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -755,6 +756,23 @@ public class Ventana extends JFrame implements MouseListener, KeyListener{
             repaint();
             revalidate();        	 
        	 break;
+       	 
+        case KeyEvent.VK_W:
+            Component[] components = addBtnPanel.getComponents();
+            for (Component component : components) {
+                if (component instanceof JButton) {
+                    JButton button = (JButton) component;
+                    Dimension size = button.getSize();
+                    size.width += 10;
+                    size.height += 10;
+                    button.setSize(size);
+                }
+            }
+            repaint();
+            revalidate();
+            break;
+
+
         }  
     }
 
