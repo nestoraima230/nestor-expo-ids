@@ -12,6 +12,8 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -47,7 +49,7 @@ import java.io.File;
 import javax.imageio.ImageIO;
 
 
-public class Ventana extends JFrame implements MouseListener{
+public class Ventana extends JFrame implements MouseListener, KeyListener{
 
     private Image backgroundImage;
     private JPanel addBtnPanel;
@@ -80,6 +82,8 @@ public class Ventana extends JFrame implements MouseListener{
         this.setLayout(new BorderLayout());
         addBtnPanel.addMouseListener(this);
 
+        this.addKeyListener(this);
+        
         this.loadComponents();
     }
 	
@@ -737,6 +741,25 @@ public class Ventana extends JFrame implements MouseListener{
          Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));   
          addBtnPanel.setBackground(color);
     }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+  	
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        switch(e.getKeyCode()) {
+        case KeyEvent.VK_DELETE:
+       	 addBtnPanel.removeAll();
+            repaint();
+            revalidate();        	 
+       	 break;
+        }  
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {}
 }
 
  
