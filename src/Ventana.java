@@ -732,7 +732,11 @@ public class Ventana extends JFrame implements MouseListener{
     public void mouseEntered(MouseEvent e) {}
 
     @Override
-    public void mouseExited(MouseEvent e) {}
+    public void mouseExited(MouseEvent e) {
+    	 Random rand = new Random();
+         Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));   
+         addBtnPanel.setBackground(color);
+    }
 }
 
  
