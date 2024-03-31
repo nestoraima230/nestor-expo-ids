@@ -73,15 +73,15 @@ public class Ventana extends JFrame implements MouseListener, KeyListener{
             e.printStackTrace();
         }
 
-        addBtnPanel = new JPanel(); 
-        addBtnPanel.setLayout(null);
-        addBtnPanel.setBackground(Color.decode("#6a5acd"));
-        addBtnPanel.setSize(this.getWidth(), this.getHeight());
+        //addBtnPanel = new JPanel(); 
+        //addBtnPanel.setLayout(null);
+        //addBtnPanel.setBackground(Color.decode("#6a5acd"));
+        //addBtnPanel.setSize(this.getWidth(), this.getHeight());
 
-        this.add(addBtnPanel);
+        //this.add(addBtnPanel);
 
         this.setLayout(new BorderLayout());
-        addBtnPanel.addMouseListener(this);
+        //addBtnPanel.addMouseListener(this);
 
         this.addKeyListener(this);
         
@@ -101,7 +101,7 @@ public class Ventana extends JFrame implements MouseListener, KeyListener{
 		//this.interfazLayout();
 		//this.paint(getGraphics());
 		//this.listener();
-		this.agregarBoton(100,200);
+		//this.agregarBoton(100,200);
 
 
 	}
@@ -692,7 +692,7 @@ public class Ventana extends JFrame implements MouseListener, KeyListener{
     }
     
     
-    public void agregarBoton(int x, int y) {
+    /*public void agregarBoton(int x, int y) {
         Random rand = new Random();
 
         JButton boton = new JButton(palabras[rand.nextInt(palabras.length)]);
@@ -716,13 +716,83 @@ public class Ventana extends JFrame implements MouseListener, KeyListener{
         addBtnPanel.add(boton);
         addBtnPanel.revalidate();
         addBtnPanel.repaint();
+    }*/
+    
+    @Override
+    public void paint(Graphics g) {
+   
+       	super.paint(g);
+
+    	Graphics2D g2d = (Graphics2D) g;
+
+        //g.drawImage(backgroundImage, 0, 0,1000,1000, this);   	
+
+
+    	g2d.setColor(Color.decode("#6a5acd")); 
+    	g2d.fillRect(390, 430, 133, 150); 
+    	g2d.setColor(Color.BLACK); 
+    	g2d.drawRect(390, 430, 133, 150); 
+
+    	g2d.setColor(Color.decode("#6a5acd"));
+    	g2d.fillRect(380, 430, 150, 55); 
+    	g2d.setColor(Color.BLACK); 
+    	g2d.drawRect(380, 430, 150, 55); 
+
+
+    	g2d.setColor(Color.decode("#00ff00"));
+    	g2d.fillRect(0, 580, 1000, 20); 
+    	g2d.setColor(Color.decode("#f0ca5d")); 
+    	g2d.fillRect(0, 600, 1000, 500); 
+
+
+    	g2d.setColor(Color.decode("#808080"));
+    	g2d.fillRect(820, 530, 50, 50);
+    	g2d.setColor(Color.BLACK);
+    	g2d.drawRect(820, 530, 50, 50);
+
+    	g2d.setColor(Color.decode("#808080"));
+    	g2d.fillRect(820, 480, 50, 50);
+    	g2d.setColor(Color.BLACK);
+    	g2d.drawRect(820, 480, 50, 50);
+
+    	g2d.setColor(Color.decode("#808080"));
+    	g2d.fillRect(820, 430, 50, 50);
+    	g2d.setColor(Color.BLACK);
+    	g2d.drawRect(820, 430, 50, 50);
+
+    	g2d.setColor(Color.decode("#808080"));
+    	g2d.fillRect(820, 380, 50, 50);
+    	g2d.setColor(Color.BLACK);
+    	g2d.drawRect(820, 380, 50, 50);
+
+    	g2d.setColor(Color.decode("#ffff00"));
+    	g2d.fillRect(870, 380, 50, 50);
+    	g2d.setColor(Color.BLACK);
+    	g2d.drawRect(870, 380, 50, 50);
+
+    	g2d.setColor(Color.decode("#ffff00"));
+    	g2d.fillRect(920, 380, 80, 50);
+    	g2d.setColor(Color.BLACK);
+    	g2d.drawRect(920, 380, 80, 50);
+
+
+
+    	g2d.setColor(Color.decode("#6a5acd")); 
+    	g2d.fillRect(880, 450, 115, 130); 
+    	g2d.setColor(Color.BLACK); 
+    	g2d.drawRect(880, 450, 115, 130);
+
+    	g2d.setColor(Color.decode("#6a5acd")); 
+    	g2d.fillRect(870, 450, 132,55); 
+    	g2d.setColor(Color.BLACK);
+    	g2d.drawRect(870, 450, 132, 55); 
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
-        agregarBoton(x, y);
+        //agregarBoton(x, y);
     }
 
     @Override
