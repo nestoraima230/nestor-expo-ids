@@ -5,10 +5,14 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.Random;
 import java.awt.FlowLayout;
 import java.awt.Font;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
@@ -17,6 +21,21 @@ public class Teclado extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+    private JPanel panel_3; 
+    Random rand = new Random();
+    private String[] catalogoPalabras = {
+            "casa", "perro", "gato", "coche", "pelota", "libro", "ordenador", "jardin", "familia", "amigo",
+            "agua", "sol", "luna", "estrella", "planta", "mesa", "silla", "ventana", "puerta", "telefono",
+            "cama", "ropa", "comida", "musica", "pelicula", "juego", "trabajo", "escuela", "parque", "ciudad",
+            "paisaje", "montaña", "playa", "bosque", "rio", "lago", "mar", "isla", "avion", "tren", "barco",
+            "bicicleta", "piscina", "supermercado", "restaurante", "hospital", "medico", "enfermedad", "dinero",
+            "trabajo", "viaje", "vacaciones", "escritorio", "pintura", "escultura", "dibujo", "musica", "baile",
+            "teatro", "concierto", "exposicion", "zoo", "parque de atracciones", "museo", "biblioteca", "futbol",
+            "baloncesto", "tenis", "natacion", "atletismo", "ciclismo", "voleibol", "golf", "ajedrez", "judo",
+            "karate", "taekwondo", "boxeo", "yoga", "pilates", "senderismo", "escalada", "esqui", "snowboard",
+            "surf", "kayak", "rafting", "buceo", "pesca", "cine", "televisión", "lectura", "puzzle", "videojuego",
+            "deporte", "arte", "cultura", "ciencia", "tecnologia", "historia", "geografia", "matematicas", "idiomas"
+        };
 
 	/**
 	 * Launch the application.
@@ -46,6 +65,8 @@ public class Teclado extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
+		mostrarInstrucciones();
+		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 255, 0));
 		contentPane.add(panel, BorderLayout.NORTH);
@@ -59,6 +80,10 @@ public class Teclado extends JFrame {
 		JLabel lblNewLabel_30 = new JLabel("0");
 		lblNewLabel_30.setFont(new Font("Agency FB", Font.BOLD, 20));
 		panel.add(lblNewLabel_30, BorderLayout.EAST);
+
+		JLabel lblNewLabel_31 = new JLabel(PalabraAleatoria());
+		lblNewLabel_31.setFont(new Font("Agency FB", Font.BOLD, 20));
+		panel.add(lblNewLabel_31, BorderLayout.SOUTH);		
 		
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.CENTER);
@@ -293,6 +318,284 @@ public class Teclado extends JFrame {
 		JLabel lblNewLabel_29 = new JLabel("BORRANDO");
 		lblNewLabel_29.setFont(new Font("Agency FB", Font.BOLD, 20));
 		panel_29.add(lblNewLabel_29, BorderLayout.EAST);
-	}
+		
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_Q) {
+                	Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
+                    panel_2.setBackground(color); 
+                }
+                
+                if (evt.getKeyCode() == KeyEvent.VK_W) {
+                	Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
+                    panel_3.setBackground(color); 
+                }
+                
+                if (evt.getKeyCode() == KeyEvent.VK_E) {
+                	Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));                	
+                    panel_4.setBackground(color); 
+                }
+                
+                if (evt.getKeyCode() == KeyEvent.VK_R) {
+                	Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));                	
+                    panel_5.setBackground(color); 
+                }
+                
+                if (evt.getKeyCode() == KeyEvent.VK_T) {
+                	Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));                	
+                    panel_6.setBackground(color); 
+                }
+                
+                if (evt.getKeyCode() == KeyEvent.VK_Y) {
+                	Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
+                	panel_7.setBackground(color); 
+                }
 
+                if (evt.getKeyCode() == KeyEvent.VK_U) {
+                	Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
+                	panel_8.setBackground(color); 
+                }                
+
+                if (evt.getKeyCode() == KeyEvent.VK_I) {
+                	Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
+                	panel_9.setBackground(color); 
+                }          
+                
+                if (evt.getKeyCode() == KeyEvent.VK_O) {
+                	Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));                    
+                	panel_10.setBackground(color); 
+                }
+                
+                if (evt.getKeyCode() == KeyEvent.VK_P) {
+                	Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));                    
+                	panel_11.setBackground(color); 
+                }
+ 
+                if (evt.getKeyCode() == KeyEvent.VK_A) {
+                	Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));                                        
+                	panel_12.setBackground(color); 
+                }            
+            
+                if (evt.getKeyCode() == KeyEvent.VK_S) {
+                	Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));                    
+                	panel_13.setBackground(color); 
+                }            
+                
+                if (evt.getKeyCode() == KeyEvent.VK_D) {
+                	Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));                    
+                	panel_14.setBackground(color); 
+                }         
+                
+                if (evt.getKeyCode() == KeyEvent.VK_F) {
+                	Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));                                        
+                	panel_15.setBackground(color); 
+                }  
+                
+                if (evt.getKeyCode() == KeyEvent.VK_G) {
+                	Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));                                    	
+                    panel_16.setBackground(color); 
+                }                   
+           
+                if (evt.getKeyCode() == KeyEvent.VK_H) {
+                	Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));                                        
+                	panel_17.setBackground(color); 
+                }      
+                
+                if (evt.getKeyCode() == KeyEvent.VK_J) {
+                	Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));                                        
+                	panel_18.setBackground(color); 
+                }
+                
+                if (evt.getKeyCode() == KeyEvent.VK_K) {
+                	Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));                                        
+                	panel_19.setBackground(color); 
+                }  
+                
+                if (evt.getKeyCode() == KeyEvent.VK_L) {
+                	Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));                                        
+                	panel_20.setBackground(color); 
+                }  
+                
+                if (evt.getKeyCode() == KeyEvent.KEY_PRESSED) {
+                	Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));                                        
+                	panel_21.setBackground(color);                 }
+                
+                
+                if (evt.getKeyCode() == KeyEvent.VK_Z) {
+                	Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));                                        
+                	panel_22.setBackground(color); 
+                }  
+                
+                if (evt.getKeyCode() == KeyEvent.VK_X) {
+                	Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));                                    	
+                    panel_23.setBackground(color); 
+                }  
+                
+                if (evt.getKeyCode() == KeyEvent.VK_C) {
+                	Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));                                        
+                	panel_24.setBackground(color); 
+                }  
+                
+                if (evt.getKeyCode() == KeyEvent.VK_V) {
+                	Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));                                        
+                	panel_25.setBackground(color); 
+                }     
+                
+                if (evt.getKeyCode() == KeyEvent.VK_B) {
+                	Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));                                        
+                	panel_26.setBackground(color); 
+                }  
+                
+                if (evt.getKeyCode() == KeyEvent.VK_N) {
+                	Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));                                        
+                	panel_27.setBackground(color); 
+                }  
+                
+                if (evt.getKeyCode() == KeyEvent.VK_M) {
+                	Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));                                                        	
+                    panel_28.setBackground(color); 
+                }  
+            }
+
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+            	
+                if (evt.getKeyCode() == KeyEvent.VK_Q) {
+                    panel_2.setBackground(Color.decode("#F0F0F0")); 
+                }
+                
+                if (evt.getKeyCode() == KeyEvent.VK_W) {
+                    panel_3.setBackground(Color.decode("#F0F0F0")); 
+                }
+                
+                if (evt.getKeyCode() == KeyEvent.VK_E) {
+                    panel_4.setBackground(Color.decode("#F0F0F0"));  
+                }
+                
+                if (evt.getKeyCode() == KeyEvent.VK_R) {
+                    panel_5.setBackground(Color.decode("#F0F0F0")); 
+                }
+                
+                if (evt.getKeyCode() == KeyEvent.VK_T) {
+                    panel_6.setBackground(Color.decode("#F0F0F0")); 
+                }
+                
+                if (evt.getKeyCode() == KeyEvent.VK_Y) {
+                    panel_7.setBackground(Color.decode("#F0F0F0")); 
+                }
+
+                if (evt.getKeyCode() == KeyEvent.VK_U) {
+                    panel_8.setBackground(Color.decode("#F0F0F0")); 
+                }                
+
+                if (evt.getKeyCode() == KeyEvent.VK_I) {
+                    panel_9.setBackground(Color.decode("#F0F0F0")); 
+                }          
+                
+                if (evt.getKeyCode() == KeyEvent.VK_O) {
+                    panel_10.setBackground(Color.decode("#F0F0F0")); 
+                }
+                
+                if (evt.getKeyCode() == KeyEvent.VK_P) {
+                    panel_11.setBackground(Color.decode("#F0F0F0")); 
+                }
+ 
+                if (evt.getKeyCode() == KeyEvent.VK_A) {
+                    panel_12.setBackground(Color.decode("#F0F0F0")); 
+                }            
+            
+                if (evt.getKeyCode() == KeyEvent.VK_S) {
+                    panel_13.setBackground(Color.decode("#F0F0F0")); 
+                }            
+                
+                if (evt.getKeyCode() == KeyEvent.VK_D) {
+                    panel_14.setBackground(Color.decode("#F0F0F0")); 
+                }         
+                
+                if (evt.getKeyCode() == KeyEvent.VK_F) {
+                    panel_15.setBackground(Color.decode("#F0F0F0")); 
+                }  
+                
+                if (evt.getKeyCode() == KeyEvent.VK_G) {
+                    panel_16.setBackground(Color.decode("#F0F0F0")); 
+                }                   
+           
+                if (evt.getKeyCode() == KeyEvent.VK_H) {
+                    panel_17.setBackground(Color.decode("#F0F0F0")); 
+                }      
+                
+                if (evt.getKeyCode() == KeyEvent.VK_J) {
+                    panel_18.setBackground(Color.decode("#F0F0F0")); 
+                }
+                
+                if (evt.getKeyCode() == KeyEvent.VK_K) {
+                    panel_19.setBackground(Color.decode("#F0F0F0")); 
+                }  
+                
+                if (evt.getKeyCode() == KeyEvent.VK_L) {
+                    panel_20.setBackground(Color.decode("#F0F0F0")); 
+                }  
+                
+                if (evt.getKeyCode() == KeyEvent.KEY_PRESSED) {
+                    panel_18.setBackground(Color.decode("#F0F0F0")); 
+                }
+                
+                if (evt.getKeyCode() == KeyEvent.VK_Z) {
+                    panel_22.setBackground(Color.decode("#F0F0F0")); 
+                }  
+                
+                if (evt.getKeyCode() == KeyEvent.VK_X) {
+                    panel_23.setBackground(Color.decode("#F0F0F0")); 
+                }  
+                
+                if (evt.getKeyCode() == KeyEvent.VK_C) {
+                    panel_24.setBackground(Color.decode("#F0F0F0")); 
+                }  
+                
+                if (evt.getKeyCode() == KeyEvent.VK_V) {
+                    panel_25.setBackground(Color.decode("#F0F0F0")); 
+                }     
+                
+                if (evt.getKeyCode() == KeyEvent.VK_B) {
+                    panel_26.setBackground(Color.decode("#F0F0F0")); 
+                }  
+                
+                if (evt.getKeyCode() == KeyEvent.VK_N) {
+                    panel_27.setBackground(Color.decode("#F0F0F0")); 
+                }  
+                
+                if (evt.getKeyCode() == KeyEvent.VK_M) {
+                	panel_28.setBackground(Color.decode("#F0F0F0"));  
+
+                }  
+            }
+        });
+
+        setFocusable(true); 
+
+	}
+	
+    private void mostrarInstrucciones() {
+        StringBuilder mensaje = new StringBuilder();
+        mensaje.append("Bienvenido al Juego del teclado!\n\n");
+        mensaje.append("Instrucciones:\n");
+        mensaje.append("- Selecciona la palabra correcta de la lista dada.\n");
+        mensaje.append("- Tienes un tiempo limitado para responder.\n");
+        mensaje.append("Presiona OK para comenzar");
+        
+        JOptionPane.showMessageDialog(this, mensaje.toString(), "Instrucciones", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    private String PalabraAleatoria() {
+        Random rand = new Random();
+        return catalogoPalabras[rand.nextInt(catalogoPalabras.length)];
+    }
+    
+
+
+    
+
+
+	
 }
