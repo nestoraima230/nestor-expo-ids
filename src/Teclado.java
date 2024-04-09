@@ -1,5 +1,4 @@
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -8,26 +7,36 @@ import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Random;
-import java.awt.FlowLayout;
 import java.awt.Font;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
 
 public class Teclado extends JFrame {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-    private JPanel panel_3; 
-    Random rand = new Random();
+    private static final long serialVersionUID = 1L;
+    private JPanel contentPane;
+    private Timer timer;
+    private int tiempoRestante;
+    private String palabraActual;
+    private JLabel lblTiempo;
+    private JLabel lblPalabra;
+    private boolean juegoIniciado = false;   
+    private static final int TIEMPO_MAXIMO = 30;
+    private static final int TIEMPO_CASI_AGOTADO = 5;
+    private Random rand = new Random();
+    private StringBuilder palabraEscrita = new StringBuilder();
+    
     private String[] catalogoPalabras = {
             "casa", "perro", "gato", "coche", "pelota", "libro", "ordenador", "jardin", "familia", "amigo",
             "agua", "sol", "luna", "estrella", "planta", "mesa", "silla", "ventana", "puerta", "telefono",
             "cama", "ropa", "comida", "musica", "pelicula", "juego", "trabajo", "escuela", "parque", "ciudad",
-            "paisaje", "montaña", "playa", "bosque", "rio", "lago", "mar", "isla", "avion", "tren", "barco",
+            "paisaje", "monta\u00F1a", "playa", "bosque", "rio", "lago", "mar", "isla", "avion", "tren", "barco",
             "bicicleta", "piscina", "supermercado", "restaurante", "hospital", "medico", "enfermedad", "dinero",
             "trabajo", "viaje", "vacaciones", "escritorio", "pintura", "escultura", "dibujo", "musica", "baile",
             "teatro", "concierto", "exposicion", "zoo", "parque de atracciones", "museo", "biblioteca", "futbol",
@@ -40,54 +49,54 @@ public class Teclado extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Teclado frame = new Teclado();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    Teclado frame = new Teclado();
+                    frame.setVisible(true);
+                    frame.iniciarJuego();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 
 	/**
 	 * Create the frame.
 	 */
 	public Teclado() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 450, 300);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setLayout(new BorderLayout(0, 0));
 
-		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));
-		
-		mostrarInstrucciones();
-		
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(0, 255, 0));
-		contentPane.add(panel, BorderLayout.NORTH);
-		panel.setLayout(new BorderLayout(0, 0));
-		
-		JLabel lblNewLabel = new JLabel("Esperando",SwingConstants.LEFT);
-		lblNewLabel.setBackground(new Color(51, 255, 0));
-		lblNewLabel.setFont(new Font("Agency FB", Font.BOLD, 20));
-		panel.add(lblNewLabel);
-		
-		JLabel lblNewLabel_30 = new JLabel("0");
-		lblNewLabel_30.setFont(new Font("Agency FB", Font.BOLD, 20));
-		panel.add(lblNewLabel_30, BorderLayout.EAST);
+        mostrarInstrucciones();
 
-		JLabel lblNewLabel_31 = new JLabel(PalabraAleatoria());
-		lblNewLabel_31.setFont(new Font("Agency FB", Font.BOLD, 20));
-		panel.add(lblNewLabel_31, BorderLayout.SOUTH);		
-		
-		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1, BorderLayout.CENTER);
-		panel_1.setLayout(new GridLayout(3, 9, 0, 0));
+        JPanel panel = new JPanel();
+        panel.setBackground(new Color(0, 255, 0));
+        contentPane.add(panel, BorderLayout.NORTH);
+        panel.setLayout(new BorderLayout(0, 0));
+
+        JLabel lblEstado = new JLabel("Presiona una tecla", SwingConstants.LEFT);
+        lblEstado.setBackground(new Color(51, 255, 0));
+        lblEstado.setFont(new Font("Agency FB", Font.BOLD, 20));
+        panel.add(lblEstado);
+
+        lblTiempo = new JLabel("0");
+        lblTiempo.setFont(new Font("Agency FB", Font.BOLD, 20));
+        panel.add(lblTiempo, BorderLayout.EAST);
+
+        lblPalabra = new JLabel("");
+        lblPalabra.setFont(new Font("Agency FB", Font.BOLD, 20));
+        panel.add(lblPalabra, BorderLayout.SOUTH);
+
+        JPanel panel_1 = new JPanel();
+        contentPane.add(panel_1, BorderLayout.CENTER);
+        panel_1.setLayout(new GridLayout(3, 9, 0, 0));
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -95,7 +104,7 @@ public class Teclado extends JFrame {
 		
 		JLabel lblNewLabel_2 = new JLabel("Q");
 		lblNewLabel_2.setFont(new Font("Agency FB", Font.BOLD, 20));
-		panel_2.add(lblNewLabel_2);
+    	panel_2.add(lblNewLabel_2);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -310,12 +319,12 @@ public class Teclado extends JFrame {
 		contentPane.add(panel_29, BorderLayout.SOUTH);
 		panel_29.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblNewLabel_1 = new JLabel("ESPACIO ");
+		JLabel lblNewLabel_1 = new JLabel("ESCRIBE ");
 		lblNewLabel_1.setFont(new Font("Agency FB", Font.BOLD, 20));
 		lblNewLabel_1.setBackground(new Color(255, 255, 255));
 		panel_29.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_29 = new JLabel("BORRANDO");
+		JLabel lblNewLabel_29 = new JLabel("     ");
 		lblNewLabel_29.setFont(new Font("Agency FB", Font.BOLD, 20));
 		panel_29.add(lblNewLabel_29, BorderLayout.EAST);
 		
@@ -416,11 +425,11 @@ public class Teclado extends JFrame {
                 	Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));                                        
                 	panel_20.setBackground(color); 
                 }  
-                
-                if (evt.getKeyCode() == KeyEvent.KEY_PRESSED) {
-                	Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));                                        
-                	panel_21.setBackground(color);                 }
-                
+                            
+                if (evt.getKeyChar() == 'ñ' || evt.getKeyChar() == 'Ñ') {
+                    Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
+                    panel_21.setBackground(color);
+                }
                 
                 if (evt.getKeyCode() == KeyEvent.VK_Z) {
                 	Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));                                        
@@ -537,8 +546,8 @@ public class Teclado extends JFrame {
                     panel_20.setBackground(Color.decode("#F0F0F0")); 
                 }  
                 
-                if (evt.getKeyCode() == KeyEvent.KEY_PRESSED) {
-                    panel_18.setBackground(Color.decode("#F0F0F0")); 
+                if (evt.getKeyChar() == 'ñ' || evt.getKeyChar() == 'Ñ') {
+                    panel_21.setBackground(Color.decode("#F0F0F0"));
                 }
                 
                 if (evt.getKeyCode() == KeyEvent.VK_Z) {
@@ -569,9 +578,55 @@ public class Teclado extends JFrame {
                 	panel_28.setBackground(Color.decode("#F0F0F0"));  
 
                 }  
+                
+                if ((evt.getKeyCode() >= KeyEvent.VK_A && evt.getKeyCode() <= KeyEvent.VK_Z) || evt.getKeyChar() == 'ñ' || evt.getKeyChar() == 'Ñ') {
+                    palabraEscrita.append((char) evt.getKeyCode());
+                    lblNewLabel_1.setText(palabraEscrita.toString()); 
+
+                    if (palabraEscrita.toString().equalsIgnoreCase(palabraActual)) {
+                        timer.stop();
+                        int tiempoTranscurrido = TIEMPO_MAXIMO - tiempoRestante;
+                        JOptionPane.showMessageDialog(Teclado.this, "¡Correcto! Tiempo transcurrido: " + tiempoTranscurrido + " segundos.");
+                        palabraEscrita.setLength(0);
+                        lblNewLabel_1.setText(""); 
+                        iniciarJuego();
+                    }                	
+                };
+                
+
+                if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getKeyCode() == KeyEvent.VK_DELETE) {
+                    palabraEscrita.setLength(0);
+                    lblNewLabel_1.setText("");
+                }
+                
+                
+                if (!juegoIniciado) {
+                    juegoIniciado = true;
+                    lblEstado.setText("Jugando");
+                    timer.start();
+                }
+
             }
         });
 
+        timer = new Timer(1000, new ActionListener() {
+        	@Override
+        	public void actionPerformed(ActionEvent e) {
+        	    if (tiempoRestante >= 0) {
+        	        tiempoRestante--;
+        	        lblTiempo.setText("Tiempo restante: " + tiempoRestante + " segundos");
+
+        	        if (tiempoRestante <= TIEMPO_CASI_AGOTADO && juegoIniciado) {
+        	            lblEstado.setText("!!!!!!Deprisa!!!!!!");
+        	        }
+        	    } else {
+        	        JOptionPane.showMessageDialog(Teclado.this, "Perdiste! Se acabó el tiempo.", "Juego terminado", JOptionPane.WARNING_MESSAGE);
+
+        	        cerrarVentana();
+        	    }
+        	}
+        });
+        
         setFocusable(true); 
 
 	}
@@ -583,19 +638,28 @@ public class Teclado extends JFrame {
         mensaje.append("- Selecciona la palabra correcta de la lista dada.\n");
         mensaje.append("- Tienes un tiempo limitado para responder.\n");
         mensaje.append("Presiona OK para comenzar");
-        
+
         JOptionPane.showMessageDialog(this, mensaje.toString(), "Instrucciones", JOptionPane.INFORMATION_MESSAGE);
     }
     
     private String PalabraAleatoria() {
-        Random rand = new Random();
         return catalogoPalabras[rand.nextInt(catalogoPalabras.length)];
     }
+   
     
-
-
+    private void iniciarJuego() {
+        tiempoRestante = TIEMPO_MAXIMO;
+        palabraActual = PalabraAleatoria();
+        lblPalabra.setText("Palabra: " + palabraActual);
+        lblTiempo.setText("Tiempo restante: " + tiempoRestante + " segundos");
+        timer.start();
+    }
     
+    private void cerrarVentana() {
+        timer.stop();
 
+        setVisible(false);
+        dispose();
+    }
 
-	
 }
