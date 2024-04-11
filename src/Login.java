@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JPasswordField;
@@ -101,6 +102,10 @@ public class Login {
         btnNewButton_1.setBounds(78, 231, 89, 30);
         panelLogin.add(btnNewButton_1);
 
+        btnNewButton_1.addActionListener(e -> {
+            JOptionPane.showMessageDialog(frame, "ERROR: verifica la informacíon.", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
+        });
+        
         JPanel panelRegistro = new JPanel();
         panelRegistro.setBackground(Color.WHITE);
         panelRegistro.setBounds(frame.getWidth() / 2, 0, frame.getWidth() / 2, frame.getHeight());
@@ -159,6 +164,18 @@ public class Login {
         passwordField_2 = new JPasswordField();
         passwordField_2.setBounds(68, 254, 143, 20);
         panelRegistro.add(passwordField_2);
+        
+        btnNewButton.addActionListener(e -> {
+            String password1 = new String(passwordField_1.getPassword());
+            String password2 = new String(passwordField_2.getPassword());
+
+            if (password1.equals(password2)) {
+                JOptionPane.showMessageDialog(frame, "¡Registro exitoso!", "Bienvenida", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(frame, "Las contraseñas no coinciden. Por favor, inténtelo de nuevo.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        
         
         JLabel lblRegistro = new JLabel("Registro");
         lblRegistro.setFont(new Font("Tahoma", Font.BOLD, 20));
