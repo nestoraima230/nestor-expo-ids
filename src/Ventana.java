@@ -90,9 +90,9 @@ public class Ventana extends JFrame implements MouseListener, KeyListener{
 	
 	public void loadComponents() {
 		
-		//this.login();
+		this.login();
 		
-		//this.registro();		
+		this.registro();		
 		
 		//this.admin();
 		this.repaint();
@@ -718,7 +718,7 @@ public class Ventana extends JFrame implements MouseListener, KeyListener{
         addBtnPanel.repaint();
     }*/
     
-    @Override
+   /* @Override
     public void paint(Graphics g) {
    
        	super.paint(g);
@@ -786,7 +786,7 @@ public class Ventana extends JFrame implements MouseListener, KeyListener{
     	g2d.fillRect(870, 450, 132,55); 
     	g2d.setColor(Color.BLACK);
     	g2d.drawRect(870, 450, 132, 55); 
-    }
+    }*/
 
     @Override
     public void mouseClicked(MouseEvent e) {
