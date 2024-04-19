@@ -15,9 +15,12 @@ public class Pacman extends JFrame implements KeyListener {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
-    int x = 100;
-    int y = 100;
+    int x = 200;
+    int y = 200;
     int radio = 20;
+    
+	Player jugador = new Player(x,y,25,25,"");
+	Player muro = new Player(100,100,20,100,"");
 
     /**
      * Launch the application.
@@ -64,9 +67,10 @@ public class Pacman extends JFrame implements KeyListener {
                 Graphics2D g2d = (Graphics2D) g;
 
                 g2d.setColor(Color.YELLOW);
-                g2d.drawOval(x , y , radio,  radio);
-                g2d.fillOval(x , y , radio,  radio);
-
+                g2d.fillOval(jugador.x , jugador.y , jugador.w,  jugador.h);
+                
+                g2d.setColor(Color.WHITE);
+                g2d.fillRect(muro.x, muro.y , muro.w,  muro.h);
             }
 
         };
@@ -83,23 +87,41 @@ public class Pacman extends JFrame implements KeyListener {
     public void keyTyped(KeyEvent e) {
 
     }
+    
 
     @Override
     public void keyPressed(KeyEvent e) {
-
         int tecla = e.getKeyCode();
+        int nuevoX = jugador.x;
+        int nuevoY = jugador.y;
 
         if (tecla == KeyEvent.VK_W) {
-            y -= 10;
+            nuevoY -= 10;
         } else if (tecla == KeyEvent.VK_A) {
-            x -= 10;
+            nuevoX -= 10;
         } else if (tecla == KeyEvent.VK_S) {
-            y += 10;
+            nuevoY += 10;
         } else if (tecla == KeyEvent.VK_D) {
-            x += 10;
+            nuevoX += 10;
         }
+
+        Player nuevaPosicion = new Player(nuevoX, nuevoY, jugador.w, jugador.h, "");
+
+        if (nuevaPosicion.colision(muro)) {
+        	System.out.println("Mensaje");
+        }else {
+        	
+            jugador.x = nuevoX;
+            jugador.y = nuevoY;
+        }
+
         update(getGraphics());
     }
+
+
+
+
+
 
     @Override
     public void keyReleased(KeyEvent e) {
