@@ -23,6 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JCheckBox;
 import javax.swing.ImageIcon;
+import java.awt.Color;
 
 
 public class Restaurante {
@@ -38,6 +39,10 @@ public class Restaurante {
     private JPasswordField passwordField_1;
     private JPasswordField passwordField_2;
     private DefaultTableModel modelTablaPlatillos;
+    private DefaultTableModel modelOrden;
+    private JTable tablaOrden;
+    private JTextField txtNombreCliente;
+    private JTextField txtTota;
 
     /**
      * Launch the application.
@@ -75,17 +80,36 @@ public class Restaurante {
         frame.getContentPane().add(panel, BorderLayout.CENTER);
         panel.setLayout(new BorderLayout());
 
+        //menuInicioPanel
         menuInicioPanel = new JPanel();
-        menuInicioPanel.setLayout(new BorderLayout());
         menuInicioPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        menuInicioPanel.setLayout(null);
 
-        JLabel tituloLabel = new JLabel("Bienvenido al Sistema de Restaurante", SwingConstants.CENTER);
+        JLabel tituloLabel = new JLabel("Bienvenido", SwingConstants.CENTER);
+        tituloLabel.setBounds(107, 20, 657, 28);
         tituloLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        menuInicioPanel.add(tituloLabel, BorderLayout.NORTH);
+        menuInicioPanel.add(tituloLabel);
 
         cardLayout = new CardLayout();
         panelContainer = new JPanel(cardLayout);
         panelContainer.add(menuInicioPanel, "menuInicio");
+        
+        JPanel panel_1 = new JPanel();
+        panel_1.setBackground(Color.GRAY);
+        panel_1.setBounds(0, 0, 132, 539);
+        menuInicioPanel.add(panel_1);
+        panel_1.setLayout(null);
+        
+        JLabel lblNewLabel_9 = new JLabel("Mi Cuenta");
+        lblNewLabel_9.setBounds(5, 5, 102, 50);
+        panel_1.add(lblNewLabel_9);
+        lblNewLabel_9.setIcon(new ImageIcon("C:\\Users\\Asus\\eclipse-workspace\\Acceso\\src\\icons8-user-50.png"));
+        
+        JButton btnNewButton_2 = new JButton("Cerrar sesion");
+        btnNewButton_2.setForeground(Color.WHITE);
+        btnNewButton_2.setBackground(Color.RED);
+        btnNewButton_2.setBounds(10, 480, 97, 23);
+        panel_1.add(btnNewButton_2);
 
         panel.add(panelContainer, BorderLayout.CENTER);
 
@@ -96,7 +120,7 @@ public class Restaurante {
 
         JMenuItem loginMenuItem = new JMenuItem("Acceso (Login)");
         menuAcceso.add(loginMenuItem);
-        JMenuItem logoutMenuItem = new JMenuItem("Salir (Logout)");
+        JMenuItem logoutMenuItem = new JMenuItem("Salir (Logout)"); //Eliminar 
         menuAcceso.add(logoutMenuItem);
         JMenuItem RegistroMenuItem = new JMenuItem("Registro");
         menuAcceso.add(RegistroMenuItem);
@@ -107,6 +131,7 @@ public class Restaurante {
         menuBar.add(menuPlatillos);
         menuBar.add(menuOrdenes);
 
+        //loginPanel
         JPanel loginPanel = new JPanel();
         loginPanel.setLayout(null);
 
@@ -149,6 +174,7 @@ public class Restaurante {
         lblNewLabel_1.setBounds(275, 412, 186, 25);
         loginPanel.add(lblNewLabel_1);
 
+        //logoutPanel
         JPanel logoutPanel = new JPanel(new BorderLayout());
         JLabel tituloLabel3 = new JLabel("Logout", SwingConstants.CENTER);
         tituloLabel3.setFont(new Font("Arial", Font.BOLD, 24));
@@ -156,6 +182,7 @@ public class Restaurante {
 
         panelContainer.add(logoutPanel, "logoutPanel");
         
+        //registroPanel
         JPanel registroPanel = new JPanel();
         panelContainer.add(registroPanel, "registroPanel");
         registroPanel.setLayout(null);
@@ -223,48 +250,85 @@ public class Restaurante {
         JLabel lblNewLabel_8 = new JLabel("¿Ya tienes cuenta?, da click aqui");
         lblNewLabel_8.setBounds(278, 450, 195, 14);
         registroPanel.add(lblNewLabel_8);
+        
+        int totalImagenes = 8; 
+        int filas = 2; 
+        int columnas = (totalImagenes + filas - 1) / filas; 
 
-        JPanel panelImagenesPlatillos = new JPanel(new GridLayout(0, 3, 10, 10)); // GridLayout con 3 columnas y espacio entre celdas
-        panelImagenesPlatillos.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Borde interno
+        //panelImagenesPlatillos
+        JPanel panelImagenesPlatillos = new JPanel(new GridLayout(filas, columnas, 10, 10));
+        panelImagenesPlatillos.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // Agrega las imágenes de los platillos al panel
-        JLabel labelImagen1 = new JLabel(new ImageIcon("C:\\Users\\Asus\\eclipse-workspace\\Acceso\\src\\check.png"));
-        labelImagen1.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                agregarPlatilloATabla("Platillo 1", 7.99);
-            }
-        });
-        panelImagenesPlatillos.add(labelImagen1);
+        
+        for (int i = 1; i <= totalImagenes; i++) {
+        	final int index = i;
+        	JLabel labelImagen = new JLabel(new ImageIcon("C:\\Users\\Asus\\eclipse-workspace\\Acceso\\src\\check" + i + ".png"));
+            labelImagen.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    agregarPlatilloATabla("Platillo " + index, 7.99 * index); 
+                }
+            });
+            panelImagenesPlatillos.add(labelImagen);
+        }
+        
 
-        JLabel labelImagen2 = new JLabel(new ImageIcon("C:\\Users\\Asus\\eclipse-workspace\\Acceso\\src\\check.png"));
-        labelImagen2.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                agregarPlatilloATabla("Platillo 2", 9.99);
-            }
-        });
-        panelImagenesPlatillos.add(labelImagen2);
 
-        // Panel para mostrar la tabla de platillos
+        
         JPanel panelTablaPlatillos = new JPanel(new BorderLayout());
         modelTablaPlatillos = new DefaultTableModel(new Object[]{"Platillo", "Cantidad", "Precio"}, 0);
         JTable tablaPlatillos = new JTable(modelTablaPlatillos);
         panelTablaPlatillos.add(new JScrollPane(tablaPlatillos), BorderLayout.CENTER);
 
-        // Panel principal que contiene los paneles de imágenes y tabla
         JPanel platillosPanel = new JPanel(new BorderLayout());
         platillosPanel.add(panelImagenesPlatillos, BorderLayout.CENTER);
         platillosPanel.add(panelTablaPlatillos, BorderLayout.SOUTH);
 
-        // Agregar el panel principal al contenedor principal
         panelContainer.add(platillosPanel, "platillosPanel");
 
-        // Agregar elementos de menú
         JMenuItem platillosMenuItem = new JMenuItem("Platillos");
         menuPlatillos.add(platillosMenuItem);
         platillosMenuItem.addActionListener(e -> {
             cardLayout.show(panelContainer, "platillosPanel");
+        });
+        
+        JPanel ordenPanel = new JPanel(new BorderLayout());
+
+        JPanel panelPlatillosDisponibles = new JPanel(new GridLayout(0, 3, 10, 10));
+
+        JPanel panelOrden = new JPanel(new BorderLayout());
+        modelOrden = new DefaultTableModel(new Object[]{"Platillo", "Cantidad", "Precio"}, 0);
+        tablaOrden = new JTable(modelOrden);
+        panelOrden.add(new JScrollPane(tablaOrden), BorderLayout.CENTER);
+
+        JPanel panelDatosOrden = new JPanel(new GridLayout(3, 2, 10, 10));
+        JLabel lblNombreCliente = new JLabel("Nombre del Cliente:");
+        txtNombreCliente = new JTextField();
+        JLabel lblTotal = new JLabel("Total:");
+        txtTota = new JTextField();
+        txtTota.setEditable(false);
+        panelDatosOrden.add(lblNombreCliente);
+        panelDatosOrden.add(txtNombreCliente);
+        panelDatosOrden.add(lblTotal);
+        panelDatosOrden.add(txtTota);
+
+        ordenPanel.add(panelPlatillosDisponibles, BorderLayout.WEST);
+        ordenPanel.add(panelOrden, BorderLayout.CENTER);
+        ordenPanel.add(panelDatosOrden, BorderLayout.SOUTH);
+
+        panelContainer.add(ordenPanel, "ordenPanel");
+     
+        //labelImagen.addMouseListener(new MouseAdapter() {    //Error labelImagen cannot be resolved       
+    	    //@Override
+    	    //public void mouseClicked(MouseEvent e) {
+    	        //agregarPlatilloAOrden("Platillo " + index, 7.99 * index); //Error index cannot be resolved to a variable
+    	    //}
+         //});
+ 
+        JMenuItem ordenMenuItem = new JMenuItem("Orden");
+        menuOrdenes.add(ordenMenuItem);
+          ordenMenuItem.addActionListener(e -> {
+         cardLayout.show(panelContainer, "ordenPanel");
         });
 
         loginMenuItem.addActionListener(e -> {
@@ -280,9 +344,34 @@ public class Restaurante {
         });
     }
 
-    private void agregarPlatilloATabla(String nombrePlatillo, double precio) {
+    private void agregarPlatilloAOrden(String nombrePlatillo, double precio) {  //CORREGIR
+        boolean encontrado = false;
+        for (int i = 0; i < modelOrden.getRowCount(); i++) {
+            if (modelOrden.getValueAt(i, 0).equals(nombrePlatillo)) {
+                int cantidad = (int) modelOrden.getValueAt(i, 1);
+                modelOrden.setValueAt(cantidad + 1, i, 1);
+                encontrado = true;
+                break;
+            }
+        }
+        if (!encontrado) {
+            modelOrden.addRow(new Object[]{nombrePlatillo, 1, precio});
+        }
+        actualizarTotal();
+    }
+    
+    private void actualizarTotal() {      //CORREGIR
+        double total = 0;
+        for (int i = 0; i < modelOrden.getRowCount(); i++) {
+            int cantidad = (int) modelOrden.getValueAt(i, 1);
+            double precio = (double) modelOrden.getValueAt(i, 2);
+            total += cantidad * precio;
+        }
+        txtTota.setText(String.format("%.2f", total));  //Cambiar formato
+    }
+    
+    private void agregarPlatilloATabla(String nombrePlatillo, double precio) { //CORREGIR
         modelTablaPlatillos.addRow(new Object[]{nombrePlatillo, 1, precio});
     }
-        
-    
+         
 }
