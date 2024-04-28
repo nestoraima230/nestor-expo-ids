@@ -1,8 +1,12 @@
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -13,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -34,15 +39,25 @@ public class Restaurante {
     private JFrame frame;
     private JPasswordField passwordField;
     private JTextField textField;
-    private JTextField textField_1;
+    private JTextField textField_1;  //CAMBIAR NOMBRES
     private JTextField textField_2;
     private JPasswordField passwordField_1;
     private JPasswordField passwordField_2;
     private DefaultTableModel modelTablaPlatillos;
     private DefaultTableModel modelOrden;
     private JTable tablaOrden;
-    private JTextField txtNombreCliente;
     private JTextField txtTota;
+    private JLabel labelImagen;
+    private JLabel lblNewLabel_9;
+    private JPanel miCuentaPanel;
+    private JTextField txtNombrePlatillo;
+    private JTextField txtDescripcionPlatillo;
+    private JTextField txtCategoriaPlatilo;
+    private JTextField txtPrecioPlatillo;
+    private JLabel lblNombre;
+    private JLabel lblApellido;
+    private JLabel lblOtroDato;
+    private JLabel lblCorreo;
 
     /**
      * Launch the application.
@@ -100,7 +115,7 @@ public class Restaurante {
         menuInicioPanel.add(panel_1);
         panel_1.setLayout(null);
         
-        JLabel lblNewLabel_9 = new JLabel("Mi Cuenta");
+        lblNewLabel_9 = new JLabel("Mi Cuenta");
         lblNewLabel_9.setBounds(5, 5, 102, 50);
         panel_1.add(lblNewLabel_9);
         lblNewLabel_9.setIcon(new ImageIcon("C:\\Users\\Asus\\eclipse-workspace\\Acceso\\src\\icons8-user-50.png"));
@@ -182,6 +197,100 @@ public class Restaurante {
 
         panelContainer.add(logoutPanel, "logoutPanel");
         
+        
+        miCuentaPanel = new JPanel();
+        miCuentaPanel.setLayout(new GridBagLayout());
+        miCuentaPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5); 
+
+        lblNombre = new JLabel();
+        lblApellido = new JLabel();
+        lblCorreo = new JLabel();
+        lblOtroDato = new JLabel();
+        
+        //CORREGIR 
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST; 
+        JLabel lblNombreUsuario = new JLabel("Nombre:");
+        lblNombreUsuario.setFont(new Font("Arial", Font.BOLD, 14));
+        miCuentaPanel.add(lblNombreUsuario, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST; 
+        miCuentaPanel.add(lblNombre, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        JLabel lblApellidoUsuario = new JLabel("Apellido:");
+        lblApellidoUsuario.setFont(new Font("Arial", Font.BOLD, 14));
+        miCuentaPanel.add(lblApellidoUsuario, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        miCuentaPanel.add(lblApellido, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.anchor = GridBagConstraints.WEST;
+        JLabel lblCorreoUsuario = new JLabel("Correo electrónico:");
+        lblCorreoUsuario.setFont(new Font("Arial", Font.BOLD, 14));
+        miCuentaPanel.add(lblCorreoUsuario, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        gbc.anchor = GridBagConstraints.WEST;
+        miCuentaPanel.add(lblCorreo, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.anchor = GridBagConstraints.WEST;
+        JLabel lblOtroDatoUsuario = new JLabel("Otro dato:");
+        lblOtroDatoUsuario.setFont(new Font("Arial", Font.BOLD, 14));
+        miCuentaPanel.add(lblOtroDatoUsuario, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        gbc.anchor = GridBagConstraints.WEST;
+        miCuentaPanel.add(lblOtroDato, gbc);
+
+        JPanel panelNombre = new JPanel(new GridBagLayout());
+        panelNombre.add(lblNombreUsuario, gbc);
+        panelNombre.add(lblNombre, gbc);
+
+        JPanel panelApellido = new JPanel(new GridBagLayout());
+        panelApellido.add(lblApellidoUsuario, gbc);
+        panelApellido.add(lblApellido, gbc);
+
+        JPanel panelCorreo = new JPanel(new GridBagLayout());
+        panelCorreo.add(lblCorreoUsuario, gbc);
+        panelCorreo.add(lblCorreo, gbc);
+
+        JPanel panelOtroDato = new JPanel(new GridBagLayout());
+        panelOtroDato.add(lblOtroDatoUsuario, gbc);
+        panelOtroDato.add(lblOtroDato, gbc);
+
+        miCuentaPanel.add(panelNombre, gbc);
+        miCuentaPanel.add(panelApellido, gbc);
+        miCuentaPanel.add(panelCorreo, gbc);
+        miCuentaPanel.add(panelOtroDato, gbc);
+
+        panelContainer.add(miCuentaPanel, "miCuentaPanel");
+
+        lblNewLabel_9.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                mostrarDatosUsuarioFicticios();
+                cardLayout.show(panelContainer, "miCuentaPanel");
+            }
+        });
+
+        
         //registroPanel
         JPanel registroPanel = new JPanel();
         panelContainer.add(registroPanel, "registroPanel");
@@ -262,7 +371,7 @@ public class Restaurante {
         
         for (int i = 1; i <= totalImagenes; i++) {
         	final int index = i;
-        	JLabel labelImagen = new JLabel(new ImageIcon("C:\\Users\\Asus\\eclipse-workspace\\Acceso\\src\\check" + i + ".png"));
+        	labelImagen = new JLabel(new ImageIcon("C:\\Users\\Asus\\eclipse-workspace\\Acceso\\src\\check" + i + ".png")); //IMPLEMENTAR LUEGO
             labelImagen.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -273,62 +382,140 @@ public class Restaurante {
         }
         
 
+        JPanel platillosPanel = new JPanel(new BorderLayout());
+        panelContainer.add(platillosPanel, "platillosPanel");
+        
+        modelTablaPlatillos = new DefaultTableModel(new Object[]{"Nombre", "Descripción", "Categoría", "Precio"}, 0);
+        JTable tablaPlatillos = new JTable(modelTablaPlatillos);
+        platillosPanel.add(new JScrollPane(tablaPlatillos), BorderLayout.CENTER);
+
+
+        JPanel panelAgregarPlatillo = new JPanel(new GridLayout(4, 2, 10, 10));
+        JTextField txtNombrePlatillo = new JTextField();
+        JTextField txtDescripcionPlatillo = new JTextField();
+        JTextField txtCategoriaPlatilo = new JTextField();
+        JTextField txtPrecioPlatillo = new JTextField();
+        panelAgregarPlatillo.add(new JLabel("Nombre:"));
+        panelAgregarPlatillo.add(txtNombrePlatillo);
+        panelAgregarPlatillo.add(new JLabel("Descripción:"));
+        panelAgregarPlatillo.add(txtDescripcionPlatillo);
+        panelAgregarPlatillo.add(new JLabel("Categoría:"));
+        panelAgregarPlatillo.add(txtCategoriaPlatilo);
+        panelAgregarPlatillo.add(new JLabel("Precio:"));
+        panelAgregarPlatillo.add(txtPrecioPlatillo);
+        platillosPanel.add(panelAgregarPlatillo, BorderLayout.NORTH);
+
+        JPanel panelBotones = new JPanel(new FlowLayout());
+        JButton btnAgregar = new JButton("Agregar");
+        JButton btnEditar = new JButton("Editar");
+        JButton btnEliminar = new JButton("Eliminar");
+        panelBotones.add(btnAgregar);
+        panelBotones.add(btnEditar);
+        panelBotones.add(btnEliminar);
+        platillosPanel.add(panelBotones, BorderLayout.SOUTH);
+
+        btnAgregar.addActionListener(e -> {
+            String nombre = txtNombrePlatillo.getText();
+            String descripcion = txtDescripcionPlatillo.getText();
+            String categoria = txtCategoriaPlatilo.getText();
+            double precio = Double.parseDouble(txtPrecioPlatillo.getText());
+            modelTablaPlatillos.addRow(new Object[]{nombre, descripcion, categoria, precio});
+            limpiarCamposNuevoPlatillo();
+        });
+
+        btnEditar.addActionListener(e -> {
+            int filaSeleccionada = tablaPlatillos.getSelectedRow();
+            if (filaSeleccionada >= 0) {
+                String nombre = txtNombrePlatillo.getText();
+                String descripcion = txtDescripcionPlatillo.getText();
+                String categoria = txtCategoriaPlatilo.getText();
+                double precio = Double.parseDouble(txtPrecioPlatillo.getText());
+                modelTablaPlatillos.setValueAt(nombre, filaSeleccionada, 0);
+                modelTablaPlatillos.setValueAt(descripcion, filaSeleccionada, 1);
+                modelTablaPlatillos.setValueAt(categoria, filaSeleccionada, 2);
+                modelTablaPlatillos.setValueAt(precio, filaSeleccionada, 3);
+            }
+        });
+
+        btnEliminar.addActionListener(e -> {
+            int filaSeleccionada = tablaPlatillos.getSelectedRow();
+            if (filaSeleccionada >= 0) {
+            	modelTablaPlatillos.removeRow(filaSeleccionada);
+            }
+        });
 
         
-        JPanel panelTablaPlatillos = new JPanel(new BorderLayout());
-        modelTablaPlatillos = new DefaultTableModel(new Object[]{"Platillo", "Cantidad", "Precio"}, 0);
-        JTable tablaPlatillos = new JTable(modelTablaPlatillos);
-        panelTablaPlatillos.add(new JScrollPane(tablaPlatillos), BorderLayout.CENTER);
-
-        JPanel platillosPanel = new JPanel(new BorderLayout());
-        platillosPanel.add(panelImagenesPlatillos, BorderLayout.CENTER);
-        platillosPanel.add(panelTablaPlatillos, BorderLayout.SOUTH);
-
-        panelContainer.add(platillosPanel, "platillosPanel");
-
         JMenuItem platillosMenuItem = new JMenuItem("Platillos");
         menuPlatillos.add(platillosMenuItem);
         platillosMenuItem.addActionListener(e -> {
             cardLayout.show(panelContainer, "platillosPanel");
         });
         
-        JPanel ordenPanel = new JPanel(new BorderLayout());
+        //JPanel ordenPanel = new JPanel(new BorderLayout());
 
-        JPanel panelPlatillosDisponibles = new JPanel(new GridLayout(0, 3, 10, 10));
+        //JPanel panelPlatillosDisponibles = new JPanel(new GridLayout(0, 3, 10, 10));
 
         JPanel panelOrden = new JPanel(new BorderLayout());
-        modelOrden = new DefaultTableModel(new Object[]{"Platillo", "Cantidad", "Precio"}, 0);
-        tablaOrden = new JTable(modelOrden);
-        panelOrden.add(new JScrollPane(tablaOrden), BorderLayout.CENTER);
+        panelContainer.add(panelOrden, "panelOrden");
+        
+        //modelOrden = new DefaultTableModel(new Object[]{"Platillo", "Cantidad", "Precio"}, 0);
+        //JTable tablaOrden = new JTable(modelOrden);
+        //panelOrden.add(new JScrollPane(tablaOrden), BorderLayout.CENTER);
+        //panelContainer.add(ordenPanel, "ordenPanel");
 
-        JPanel panelDatosOrden = new JPanel(new GridLayout(3, 2, 10, 10));
-        JLabel lblNombreCliente = new JLabel("Nombre del Cliente:");
-        txtNombreCliente = new JTextField();
-        JLabel lblTotal = new JLabel("Total:");
-        txtTota = new JTextField();
-        txtTota.setEditable(false);
-        panelDatosOrden.add(lblNombreCliente);
-        panelDatosOrden.add(txtNombreCliente);
-        panelDatosOrden.add(lblTotal);
-        panelDatosOrden.add(txtTota);
 
-        ordenPanel.add(panelPlatillosDisponibles, BorderLayout.WEST);
-        ordenPanel.add(panelOrden, BorderLayout.CENTER);
-        ordenPanel.add(panelDatosOrden, BorderLayout.SOUTH);
+        JPanel panelDatosa = new JPanel(new GridLayout(3, 2, 10, 10));
+        JTextField txtNombreCliente = new JTextField();
+        JLabel lblTotal = new JLabel("Total: $0.00");
+        JLabel lblTotalPlatillos = new JLabel("Total de platillos: 0");
+        panelDatosa.add(new JLabel("Nombre del cliente:"));
+        panelDatosa.add(txtNombreCliente);
+        panelDatosa.add(new JLabel("Total:"));
+        panelDatosa.add(lblTotal);
+        panelDatosa.add(new JLabel("Total de platillos:"));
+        panelDatosa.add(lblTotalPlatillos);
+        panelOrden.add(panelDatosa, BorderLayout.NORTH);
 
-        panelContainer.add(ordenPanel, "ordenPanel");
+        JPanel panelBotonesg = new JPanel(new FlowLayout());
+        JButton btnAgregarPlatillo = new JButton("Agregar Platillo");
+        JButton btnEditarPlatillo = new JButton("Editar Platillo");
+        JButton btnEliminarPlatillo = new JButton("Eliminar Platillo");
+        panelBotonesg.add(btnAgregarPlatillo);
+        panelBotonesg.add(btnEditarPlatillo);
+        panelBotonesg.add(btnEliminarPlatillo);
+        panelOrden.add(panelBotonesg, BorderLayout.SOUTH);
+
      
-        //labelImagen.addMouseListener(new MouseAdapter() {    //Error labelImagen cannot be resolved       
-    	    //@Override
-    	    //public void mouseClicked(MouseEvent e) {
-    	        //agregarPlatilloAOrden("Platillo " + index, 7.99 * index); //Error index cannot be resolved to a variable
-    	    //}
-         //});
+        btnAgregarPlatillo.addActionListener(e -> {
+            String platillo = JOptionPane.showInputDialog("Ingresa el nombre del platillo:");
+            if (platillo != null && !platillo.isEmpty()) {
+                double precio = Double.parseDouble(JOptionPane.showInputDialog("Ingresa el precio del platillo:"));
+                int cantidad = Integer.parseInt(JOptionPane.showInputDialog("Ingresa la cantidad:"));
+                modelOrden.addRow(new Object[]{platillo, cantidad, precio});
+                actualizarTotal();
+            }
+        });
+        
+        btnEditarPlatillo.addActionListener(e -> {
+            int filaSeleccionada = tablaOrden.getSelectedRow();
+            if (filaSeleccionada >= 0) {
+                String platillo = JOptionPane.showInputDialog("Ingresa el nuevo nombre del platillo:", (String) modelOrden.getValueAt(filaSeleccionada, 0));
+                if (platillo != null && !platillo.isEmpty()) {
+                    double precio = Double.parseDouble(JOptionPane.showInputDialog("Ingresa el nuevo precio del platillo:", modelOrden.getValueAt(filaSeleccionada, 2)));
+                    int cantidad = Integer.parseInt(JOptionPane.showInputDialog("Ingresa la nueva cantidad:", (Integer) modelOrden.getValueAt(filaSeleccionada, 1)));
+                    
+                    modelOrden.setValueAt(platillo, filaSeleccionada, 0);
+                    modelOrden.setValueAt(precio, filaSeleccionada, 2);
+                    modelOrden.setValueAt(cantidad, filaSeleccionada, 1);
+                }
+            }
+        });
+
  
         JMenuItem ordenMenuItem = new JMenuItem("Orden");
         menuOrdenes.add(ordenMenuItem);
           ordenMenuItem.addActionListener(e -> {
-         cardLayout.show(panelContainer, "ordenPanel");
+         cardLayout.show(panelContainer, "panelOrden");
         });
 
         loginMenuItem.addActionListener(e -> {
@@ -344,34 +531,57 @@ public class Restaurante {
         });
     }
 
-    private void agregarPlatilloAOrden(String nombrePlatillo, double precio) {  //CORREGIR
-        boolean encontrado = false;
-        for (int i = 0; i < modelOrden.getRowCount(); i++) {
-            if (modelOrden.getValueAt(i, 0).equals(nombrePlatillo)) {
-                int cantidad = (int) modelOrden.getValueAt(i, 1);
-                modelOrden.setValueAt(cantidad + 1, i, 1);
-                encontrado = true;
-                break;
-            }
-        }
-        if (!encontrado) {
-            modelOrden.addRow(new Object[]{nombrePlatillo, 1, precio});
-        }
-        actualizarTotal();
-    }
+    //private void agregarPlatilloAOrden(String nombrePlatillo, double precio) {  
+        //boolean encontrado = false;
+        //for (int i = 0; i < modelOrden.getRowCount(); i++) {
+            //if (modelOrden.getValueAt(i, 0).equals(nombrePlatillo)) {
+                //int cantidad = (int) modelOrden.getValueAt(i, 1);
+                //modelOrden.setValueAt(cantidad + 1, i, 1);
+                //encontrado = true;
+               // break;
+           // }
+        //}
+        //if (!encontrado) {
+            //modelOrden.addRow(new Object[]{nombrePlatillo, 1, precio});
+        //}
+       // actualizarTotal();
+    //}
     
-    private void actualizarTotal() {      //CORREGIR
+    private void actualizarTotal() {      
         double total = 0;
         for (int i = 0; i < modelOrden.getRowCount(); i++) {
             int cantidad = (int) modelOrden.getValueAt(i, 1);
             double precio = (double) modelOrden.getValueAt(i, 2);
             total += cantidad * precio;
         }
-        txtTota.setText(String.format("%.2f", total));  //Cambiar formato
+        txtTota.setText(String.format("%.2f", total));  
     }
     
     private void agregarPlatilloATabla(String nombrePlatillo, double precio) { //CORREGIR
         modelTablaPlatillos.addRow(new Object[]{nombrePlatillo, 1, precio});
     }
          
+
+
+    private void mostrarDatosUsuarioFicticios() {  //MEJORAR
+        String nombreUsuario = "";
+        String apellidoUsuario = "";
+        String correoUsuario = "";
+        String otroDatoUsuario = "";
+
+        lblNombre.setText(nombreUsuario);
+        lblApellido.setText(apellidoUsuario);
+        lblCorreo.setText(correoUsuario);
+        lblOtroDato.setText(otroDatoUsuario);
+    }
+
+    
+    private void limpiarCamposNuevoPlatillo() {
+        txtNombrePlatillo.setText("");
+        txtDescripcionPlatillo.setText("");
+        txtCategoriaPlatilo.setText("");
+        txtPrecioPlatillo.setText("");
+    }
+
+
 }
