@@ -3,6 +3,7 @@ import java.awt.CardLayout;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -20,7 +21,9 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,6 +38,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JFormattedTextField;
 import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -47,9 +51,11 @@ import javax.swing.JTextPane;
 import javax.swing.JScrollBar;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.Icon;
 
 
 public class Restaurante {
+
 
     private JPanel menuInicioPanel;
     private JPanel panelContainer;
@@ -81,7 +87,7 @@ public class Restaurante {
     private User usuarioActual;   
     private JLabel lblTotal;
     private JLabel lblTotalPlatillos;
-
+    private JPanel registroPanel;
 
     /**
      * Launch the application.
@@ -112,6 +118,17 @@ public class Restaurante {
      * Initialize the contents of the frame.
      */
     private void initialize() {
+    	
+    	try {
+    	    Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("C:\\Users\\Asus\\Downloads\\Blackboard Restaurant.otf")).deriveFont(12f);
+    	    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+    	    ge.registerFont(customFont);
+    	} catch (Exception e) {
+    	    e.printStackTrace();
+    	    // JOptionPane.showMessageDialog(null, "Error al cargar la fuente personalizada: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    	}
+
+
         frame = new JFrame();
         frame.setBounds(100, 100, 800, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -122,12 +139,14 @@ public class Restaurante {
 
         //menuInicioPanel
         menuInicioPanel = new JPanel();
+        menuInicioPanel.setBackground(new Color(34, 139, 34));
         menuInicioPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         menuInicioPanel.setLayout(null);
 
+        Font customFont = new Font("Blackboard Restaurant", Font.PLAIN, 12); 
         JLabel tituloLabel = new JLabel("Bienvenido", SwingConstants.CENTER);
-        tituloLabel.setBounds(107, 20, 657, 28);
-        tituloLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        tituloLabel.setBounds(208, 36, 455, 69);
+        tituloLabel.setFont(customFont.deriveFont(Font.BOLD, 54));
         menuInicioPanel.add(tituloLabel);
 
         cardLayout = new CardLayout();
@@ -135,20 +154,25 @@ public class Restaurante {
         panelContainer.add(menuInicioPanel, "menuInicio");
         
         JPanel panel_1 = new JPanel();
-        panel_1.setBackground(Color.GRAY);
-        panel_1.setBounds(0, 0, 132, 539);
+        panel_1.setBackground(new Color(85, 107, 47));
+        panel_1.setBounds(0, 0, 157, 539);
         menuInicioPanel.add(panel_1);
         panel_1.setLayout(null);
         
         lblNewLabel_9 = new JLabel("Mi Cuenta");
-        lblNewLabel_9.setBounds(5, 5, 102, 50);
+        lblNewLabel_9.setBounds(5, 5, 142, 50);
         panel_1.add(lblNewLabel_9);
         lblNewLabel_9.setIcon(new ImageIcon("C:\\Users\\Asus\\eclipse-workspace\\Acceso\\src\\icons8-user-50.png"));
+        lblNewLabel_9.setFont(customFont.deriveFont(Font.BOLD, 18));
         
-        JButton btnNewButton_2 = new JButton("Cerrar sesion");
+        JButton btnNewButton_2 =  new RoundedButton("Cerrar sesion");
+        btnNewButton_2.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
         btnNewButton_2.setForeground(Color.WHITE);
         btnNewButton_2.setBackground(Color.RED);
-        btnNewButton_2.setBounds(10, 480, 97, 23);
+        btnNewButton_2.setBounds(10, 480, 114, 23);
         panel_1.add(btnNewButton_2);
         
         JPanel panel_2 = new JPanel();
@@ -157,10 +181,27 @@ public class Restaurante {
         panel_2.setLayout(null);
         
         JPanel panel_3 = new JPanel();
-        panel_3.setBackground(Color.GREEN);
+        panel_3.setBackground(new Color(0, 100, 0));
         panel_3.setBounds(132, 428, 652, 111);
         menuInicioPanel.add(panel_3);
         panel_3.setLayout(null);
+        
+        String rutaImagen2 = "C:\\Users\\Asus\\eclipse-workspace\\Acceso\\src\\descarga.png";
+        ImageIcon icono2 = new ImageIcon(rutaImagen2);
+        Image imagenEscalada2 = icono2.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        ImageIcon iconoEscalado2 = new ImageIcon(imagenEscalada2);
+        JLabel lblNewLabel_18 = new JLabel(iconoEscalado2);
+        lblNewLabel_18.setBounds(208, 169, 526, 248);
+        menuInicioPanel.add(lblNewLabel_18);
+        
+        String rutaImagen3 = "C:\\Users\\Asus\\eclipse-workspace\\Acceso\\src\\8b96e3f0723c96f3f4bfeb467bb593ee-removebg-preview.png";
+
+        ImageIcon icono3 = new ImageIcon(rutaImagen3);
+        Image imagenEscalada3 = icono3.getImage().getScaledInstance(5000, 5000, Image.SCALE_SMOOTH);
+        ImageIcon iconoEscalado3 = new ImageIcon(imagenEscalada3);
+        JLabel lblNewLabel_18_1 = new JLabel(iconoEscalado3);
+        lblNewLabel_18_1.setBounds(547, 17, 151, 88);
+        menuInicioPanel.add(lblNewLabel_18_1);
 
         panel.add(panelContainer, BorderLayout.CENTER);
 
@@ -182,11 +223,17 @@ public class Restaurante {
 
         //loginPanel
         JPanel loginPanel = new JPanel();
+        loginPanel.setBackground(new Color(255, 0, 51));
         loginPanel.setLayout(null);
 
+        loginPanel.setVisible(true);
+        
         JLabel lblIniciarSesion = new JLabel("Iniciar Sesión");
-        lblIniciarSesion.setFont(new Font("Tahoma", Font.PLAIN, 24));
-        lblIniciarSesion.setBounds(284, 23, 201, 88);
+        lblIniciarSesion.setForeground(Color.WHITE);
+        lblIniciarSesion.setHorizontalAlignment(SwingConstants.CENTER);
+        Font customFont2 = new Font("Blackboard Restaurant", Font.PLAIN, 34);
+        lblIniciarSesion.setBounds(234, 21, 253, 111);
+        lblIniciarSesion.setFont(customFont2.deriveFont(Font.BOLD, 34));
         loginPanel.add(lblIniciarSesion);
 
         JTextField txtNombre = new JTextField();
@@ -195,7 +242,10 @@ public class Restaurante {
         txtNombre.setColumns(10);
 
         JButton btnIniciarSesion = new JButton("Iniciar Sesión");
-        btnIniciarSesion.setBounds(298, 355, 150, 30);
+        btnIniciarSesion.setForeground(Color.WHITE);
+        btnIniciarSesion.setBackground(new Color(255, 0, 51));
+        btnIniciarSesion.setBounds(298, 352, 150, 38);
+        btnIniciarSesion.setFont(customFont.deriveFont(Font.PLAIN, 15)); 
         loginPanel.add(btnIniciarSesion);
         
 
@@ -203,7 +253,7 @@ public class Restaurante {
             String nombreUsuario = txtNombre.getText().trim();
             String contraseña = new String(passwordField.getPassword()).trim();
 
-            if (!nombreUsuario.isEmpty() && !contraseña.isEmpty()) { // Verificar longitud de usuario y contraseña
+            if (!nombreUsuario.isEmpty() && !contraseña.isEmpty()) { 
                 if (verificarUsuarioDesdeArchivo(nombreUsuario, contraseña)) {
                     JOptionPane.showMessageDialog(frame, "Inicio de sesión exitoso.");
                     usuarioAutenticado = true;
@@ -218,22 +268,26 @@ public class Restaurante {
         });
 
         JButton btnRegistro = new JButton("Registrarse");
-        btnRegistro.setBounds(298, 453, 150, 30);
+        btnRegistro.setForeground(Color.WHITE);
+        btnRegistro.setBackground(new Color(255, 0, 51));
+        btnRegistro.setBounds(298, 453, 150, 38);
+        btnRegistro.setFont(customFont.deriveFont(Font.PLAIN, 15)); 
         loginPanel.add(btnRegistro);
         
-        btnRegistro.addActionListener(e -> {
-        });
-
         panelContainer.add(loginPanel, "loginPanel");
         
+        Font customFont3 = new Font("Blackboard Restaurant", Font.PLAIN, 20);
+        
         JLabel lblNewLabel = new JLabel("Ingresa tu nombre");
-        lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 12));
+        lblNewLabel.setForeground(Color.WHITE);
+        lblNewLabel.setFont(customFont3.deriveFont(Font.PLAIN, 20)); 
         lblNewLabel.setBounds(285, 145, 161, 25);
         loginPanel.add(lblNewLabel);
         
         JLabel lblIngresaTuContrasea = new JLabel("Ingresa tu contraseña");
-        lblIngresaTuContrasea.setFont(new Font("Arial", Font.PLAIN, 12));
-        lblIngresaTuContrasea.setBounds(284, 242, 161, 25);
+        lblIngresaTuContrasea.setForeground(Color.WHITE);
+        lblIngresaTuContrasea.setFont(customFont3.deriveFont(Font.PLAIN, 20)); 
+        lblIngresaTuContrasea.setBounds(261, 242, 226, 25);
         loginPanel.add(lblIngresaTuContrasea);
         
         passwordField = new JPasswordField();
@@ -241,24 +295,30 @@ public class Restaurante {
         loginPanel.add(passwordField);
         
         JLabel lblNewLabel_1 = new JLabel("¿No tienes cuenta?, da click aqui");
-        lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 12));
-        lblNewLabel_1.setBounds(275, 412, 186, 25);
+        lblNewLabel_1.setForeground(Color.WHITE);
+        lblNewLabel_1.setFont(customFont3.deriveFont(Font.PLAIN, 20)); 
+        lblNewLabel_1.setBounds(234, 412, 290, 25);
         loginPanel.add(lblNewLabel_1);
-
+        
         miCuentaPanel = new JPanel();
+        miCuentaPanel.setBackground(Color.ORANGE);
         panelContainer.add(miCuentaPanel, "miCuentaPanel");
         miCuentaPanel.setLayout(null);
         
+
         JLabel lblNewLabel_10 = new JLabel("Nombre");
         lblNewLabel_10.setBounds(47, 73, 102, 14);
+        lblNewLabel_10.setFont(customFont.deriveFont(Font.PLAIN, 13)); 
         miCuentaPanel.add(lblNewLabel_10);
         
         JLabel lblNewLabel_11 = new JLabel("Apellidos");
         lblNewLabel_11.setBounds(47, 111, 90, 14);
+        lblNewLabel_11.setFont(customFont.deriveFont(Font.PLAIN, 13)); 
         miCuentaPanel.add(lblNewLabel_11);
         
         JLabel lblNewLabel_12 = new JLabel("Correo electronico");
         lblNewLabel_12.setBounds(23, 147, 114, 14);
+        lblNewLabel_12.setFont(customFont.deriveFont(Font.PLAIN, 13));        
         miCuentaPanel.add(lblNewLabel_12);
         
         textField_3 = new JTextField();
@@ -282,15 +342,18 @@ public class Restaurante {
         miCuentaPanel.add(lblNewLabel_13);
         
         JLabel lblNewLabel_14 = new JLabel("DATOS GENERALES");
-        lblNewLabel_14.setBounds(47, 36, 102, 14);
+        lblNewLabel_14.setBounds(50, 24, 193, 32);
+        lblNewLabel_14.setFont(customFont.deriveFont(Font.PLAIN, 20));  
         miCuentaPanel.add(lblNewLabel_14);
         
         JLabel lblNewLabel_15 = new JLabel("PERFIL");
-        lblNewLabel_15.setBounds(516, 36, 46, 14);
+        lblNewLabel_15.setBounds(516, 24, 84, 26);
+        lblNewLabel_15.setFont(customFont.deriveFont(Font.PLAIN, 20));  
         miCuentaPanel.add(lblNewLabel_15);
         
         JLabel lblNewLabel_16 = new JLabel("COMENTARIOS");
-        lblNewLabel_16.setBounds(47, 332, 154, 14);
+        lblNewLabel_16.setBounds(47, 314, 154, 32);
+        lblNewLabel_16.setFont(customFont.deriveFont(Font.PLAIN, 20));  
         miCuentaPanel.add(lblNewLabel_16);
         
         JTextPane textPane = new JTextPane();
@@ -303,6 +366,7 @@ public class Restaurante {
         
         JLabel lblNewLabel_17 = new JLabel("Contraseña");
         lblNewLabel_17.setBounds(33, 185, 92, 14);
+        lblNewLabel_17.setFont(customFont.deriveFont(Font.PLAIN, 13));  
         miCuentaPanel.add(lblNewLabel_17);
         
         passwordField_3 = new JPasswordField();
@@ -310,20 +374,31 @@ public class Restaurante {
         miCuentaPanel.add(passwordField_3);
         
         JButton btnNewButton_3 = new JButton("Editar datos");
+        btnNewButton_3.setBackground(Color.ORANGE);
         btnNewButton_3.setBounds(520, 354, 114, 23);
+        btnNewButton_3.setFont(customFont.deriveFont(Font.PLAIN, 13));  
         miCuentaPanel.add(btnNewButton_3);
+
         
         String rutaImagen = "C:\\\\Users\\\\Asus\\\\eclipse-workspace\\\\Acceso\\\\src\\\\diskette.png"; 
         ImageIcon icono = new ImageIcon(rutaImagen);
         Image imagenEscalada = icono.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         ImageIcon iconoEscalado = new ImageIcon(imagenEscalada);
         JButton btnNewButton_4 = new JButton("Guardar", iconoEscalado);
+        btnNewButton_4.setBackground(Color.ORANGE);
+        btnNewButton_4.setFont(customFont.deriveFont(Font.PLAIN, 13)); 
 
         btnNewButton_4.setBounds(520, 405, 121, 23);
         miCuentaPanel.add(btnNewButton_4);
         
-        JButton btnNewButton_5 = new JButton("Eliminar");
+        String rutaImagen5 = "C:\\\\Users\\\\Asus\\\\eclipse-workspace\\\\Acceso\\\\src\\\\close.png"; 
+        ImageIcon icono5 = new ImageIcon(rutaImagen5);
+        Image imagenEscalada5 = icono5.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        ImageIcon iconoEscalado5 = new ImageIcon(imagenEscalada5);
+        JButton btnNewButton_5 = new JButton("Eliminar", iconoEscalado5);
+        btnNewButton_5.setForeground(Color.WHITE);
         btnNewButton_5.setBackground(Color.RED);
+        btnNewButton_5.setFont(customFont.deriveFont(Font.PLAIN, 13)); 
         btnNewButton_5.setBounds(520, 448, 121, 23);
         miCuentaPanel.add(btnNewButton_5);
 
@@ -344,13 +419,17 @@ public class Restaurante {
 
         
         //registroPanel
-        JPanel registroPanel = new JPanel();
+        registroPanel = new JPanel();
+        registroPanel.setBackground(Color.YELLOW);
         panelContainer.add(registroPanel, "registroPanel");
         registroPanel.setLayout(null);
         
         JLabel lblNewLabel_2 = new JLabel("Registro");
-        lblNewLabel_2.setFont(new Font("Arial", Font.PLAIN, 24));
-        lblNewLabel_2.setBounds(319, 41, 126, 46);
+        lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+        Font customFont4 = new Font("Blackboard Restaurant", Font.PLAIN, 34);
+        Font customFontBold = customFont4.deriveFont(Font.BOLD, 34);
+        lblNewLabel_2.setFont(customFontBold);    //
+        lblNewLabel_2.setBounds(291, 39, 167, 46);
         registroPanel.add(lblNewLabel_2);
         
         nombreRegistroField = new JTextField();
@@ -376,11 +455,16 @@ public class Restaurante {
         ccontraseñaField.setBounds(280, 326, 193, 20);
         registroPanel.add(ccontraseñaField);
         
-        JCheckBox chckbxNewCheckBox = new JCheckBox("Acepto los terminos y condiciones");
+        JCheckBox chckbxNewCheckBox = new JCheckBox("Acepto los términos y condiciones");
+        chckbxNewCheckBox.setBackground(Color.YELLOW);
+        chckbxNewCheckBox.setForeground(Color.BLACK);
+        chckbxNewCheckBox.setFont(customFont4.deriveFont(Font.PLAIN, 15));
+        
         chckbxNewCheckBox.setBounds(280, 370, 246, 23);
         registroPanel.add(chckbxNewCheckBox);
         
-        JButton btnRegistro1Button = new JButton("Registro");
+        JButton btnRegistro1Button = new JButton("Registro");                
+        btnRegistro1Button.setBackground(Color.YELLOW);
         
         btnRegistro1Button.addActionListener(e -> {
             String nombre = nombreRegistroField.getText();
@@ -395,6 +479,7 @@ public class Restaurante {
                     if (guardarUsuarioEnArchivo(nuevoUsuario)) {
                         JOptionPane.showMessageDialog(frame, "Usuario registrado exitosamente.");
                         usuarioAutenticado = true;
+                        cardLayout.show(panelContainer, "menuInicio");
                     } else {
                         JOptionPane.showMessageDialog(frame, "Error al registrar usuario. Por favor, inténtalo de nuevo.");
                     }
@@ -407,73 +492,146 @@ public class Restaurante {
         });
 
 
-        
-        btnRegistro1Button.setBounds(291, 406, 89, 23);
+        btnRegistro1Button.setFont(customFont4.deriveFont(Font.PLAIN, 15)); 
+        btnRegistro1Button.setBounds(291, 406, 111, 23);
         registroPanel.add(btnRegistro1Button);
         
-        JButton btnIniciarSesion1 = new JButton("Iniciar sesion");
+        JButton btnIniciarSesion1 = new JButton("Iniciar sesion");       
+        btnIniciarSesion1.setBackground(Color.YELLOW);
+        btnIniciarSesion1.setFont(customFont4.deriveFont(Font.PLAIN, 15)); 
+        btnIniciarSesion1.addActionListener(e -> {
+            cardLayout.show(panelContainer, "loginPanel");
+        });
         btnIniciarSesion1.setBounds(304, 475, 129, 23);
         registroPanel.add(btnIniciarSesion1);
         
         JLabel lblNewLabel_3 = new JLabel("Nombre");
+        lblNewLabel_3.setFont(customFont4.deriveFont(Font.PLAIN, 15)); 
         lblNewLabel_3.setBounds(156, 114, 77, 14);
         registroPanel.add(lblNewLabel_3);
         
         JLabel lblNewLabel_4 = new JLabel("Apellidos");
-        lblNewLabel_4.setBounds(474, 114, 133, 14);
+        lblNewLabel_4.setFont(customFont4.deriveFont(Font.PLAIN, 15)); 
+        lblNewLabel_4.setBounds(427, 114, 180, 14);
         registroPanel.add(lblNewLabel_4);
         
-        JLabel lblNewLabel_5 = new JLabel("Correo electronico");
+        JLabel lblNewLabel_5 = new JLabel("Correo electrónico");
+        lblNewLabel_5.setFont(customFont4.deriveFont(Font.PLAIN, 15)); 
         lblNewLabel_5.setBounds(319, 180, 114, 14);
         registroPanel.add(lblNewLabel_5);
         
         JLabel lblNewLabel_6 = new JLabel("Contraseña");
+        lblNewLabel_6.setFont(customFont4.deriveFont(Font.PLAIN, 15)); 
         lblNewLabel_6.setBounds(319, 246, 83, 14);
         registroPanel.add(lblNewLabel_6);
         
         JLabel lblNewLabel_7 = new JLabel("Confirmar contraseña");
-        lblNewLabel_7.setBounds(319, 307, 114, 14);
+        lblNewLabel_7.setFont(customFont4.deriveFont(Font.PLAIN, 15)); 
+        lblNewLabel_7.setBounds(302, 301, 143, 14);
         registroPanel.add(lblNewLabel_7);
+
         
-        JLabel lblNewLabel_8 = new JLabel("¿Ya tienes cuenta?, da click aqui");
+        JLabel lblNewLabel_8 = new JLabel("¿Ya tienes cuenta?, da click aquí");
+        lblNewLabel_8.setFont(customFont4.deriveFont(Font.PLAIN, 15)); 
         lblNewLabel_8.setBounds(278, 450, 195, 14);
         registroPanel.add(lblNewLabel_8);
         
-   
+        btnRegistro.addActionListener(e -> {
+            cardLayout.show(panelContainer, "registroPanel");
+        });
+
         JPanel platillosPanel = new JPanel(new BorderLayout());
         panelContainer.add(platillosPanel, "platillosPanel");
         
         modelTablaPlatillos = new DefaultTableModel(new Object[]{"Nombre", "Descripción", "Categoría", "Precio", "Imagen"}, 0);
         tablaPlatillos = new JTable(modelTablaPlatillos);
+        tablaPlatillos.setForeground(Color.WHITE);
+        tablaPlatillos.setBackground(new Color(0, 153, 51));
         platillosPanel.add(new JScrollPane(tablaPlatillos), BorderLayout.CENTER);
-
+        
+        modelTablaPlatillos.addColumn("Seleccionar");
+        
+        ButtonGroup buttonGroup = new ButtonGroup();
+        for (int i = 0; i < modelTablaPlatillos.getRowCount(); i++) {
+            JRadioButton radioButton = new JRadioButton();
+            buttonGroup.add(radioButton);
+            modelTablaPlatillos.setValueAt(radioButton, i, modelTablaPlatillos.getColumnCount() - 1);        
+        }
 
         JPanel panelAgregarPlatillo = new JPanel(new GridLayout(6, 2, 10, 10));
+        panelAgregarPlatillo.setBackground(new Color(0, 153, 51));
 
         txtNombrePlatillo = new JTextField();
         txtDescripcionPlatillo = new JTextField();
         txtCategoriaPlatilo = new JTextField();
         txtPrecioPlatillo = new JTextField();
 
-        panelAgregarPlatillo.add(new JLabel("Nombre:"));
+        JLabel lblNombre = new JLabel("Nombre:");
+        lblNombre.setForeground(Color.WHITE);
+        lblNombre.setFont(customFont.deriveFont(Font.PLAIN, 15)); 
+        panelAgregarPlatillo.add(lblNombre);
+        
         panelAgregarPlatillo.add(txtNombrePlatillo);
-        panelAgregarPlatillo.add(new JLabel("Descripción:"));
+        
+        JLabel lblDescripcion = new JLabel("Descripción:");
+        lblDescripcion.setForeground(Color.WHITE);
+        lblDescripcion.setFont(customFont.deriveFont(Font.PLAIN, 15)); 
+        panelAgregarPlatillo.add(lblDescripcion);
+        
         panelAgregarPlatillo.add(txtDescripcionPlatillo);
-        panelAgregarPlatillo.add(new JLabel("Categoría:"));
+        
+        JLabel lblCategoria = new JLabel("Categoría:");
+        lblCategoria.setForeground(Color.WHITE);
+        lblCategoria.setFont(customFont.deriveFont(Font.PLAIN, 15)); 
+        panelAgregarPlatillo.add(lblCategoria);
+        
         panelAgregarPlatillo.add(txtCategoriaPlatilo);
-        panelAgregarPlatillo.add(new JLabel("Precio:"));
+        
+        JLabel lblPrecio = new JLabel("Precio:");
+        lblPrecio.setForeground(Color.WHITE);
+        lblPrecio.setFont(customFont.deriveFont(Font.PLAIN, 15)); 
+        panelAgregarPlatillo.add(lblPrecio);
+        
         panelAgregarPlatillo.add(txtPrecioPlatillo);
 
         JButton btnSeleccionarImagen = new JButton("Seleccionar Imagen");
-        panelAgregarPlatillo.add(new JLabel("Imagen (opcional):"));
+        btnSeleccionarImagen.setForeground(Color.WHITE);
+        btnSeleccionarImagen.setBackground(new Color(0, 153, 51));
+        btnSeleccionarImagen.setFont(customFont.deriveFont(Font.PLAIN, 15)); 
         panelAgregarPlatillo.add(btnSeleccionarImagen);
-
+        
+        JLabel lblImagen = new JLabel("Imagen (opcional)");
+        lblImagen.setForeground(Color.WHITE);
+        lblImagen.setFont(customFont.deriveFont(Font.PLAIN, 15)); 
+        panelAgregarPlatillo.add(lblImagen);
+        
         platillosPanel.add(panelAgregarPlatillo, BorderLayout.NORTH);
 
         JPanel panelBotones1 = new JPanel(new FlowLayout());
-        JButton btnAgregar = new JButton("Agregar");
+        panelBotones1.setBackground(new Color(0, 153, 0));
+        String rutaImagen6 = "C:\\\\Users\\\\Asus\\\\eclipse-workspace\\\\Acceso\\\\src\\\\plus.png"; 
+        ImageIcon icono6 = new ImageIcon(rutaImagen6);
+        Image imagenEscalada6 = icono6.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        ImageIcon iconoEscalado6 = new ImageIcon(imagenEscalada6);
+        JButton btnAgregar = new JButton("Agregar", iconoEscalado6);
+        btnAgregar.setBackground(new Color(0, 153, 0));
+        btnAgregar.setForeground(Color.WHITE);
+        btnAgregar.setFont(customFont.deriveFont(Font.PLAIN, 15)); 
+        panelBotones1.add(btnAgregar);
         JButton btnEditar = new JButton("Editar");
-        JButton btnEliminar = new JButton("Eliminar");
+        btnEditar.setBackground(new Color(0, 153, 0));
+        btnEditar.setForeground(Color.WHITE);
+        btnEditar.setFont(customFont.deriveFont(Font.PLAIN, 15)); 
+        panelBotones1.add(btnEditar);
+        String rutaImagen4 = "C:\\\\Users\\\\Asus\\\\eclipse-workspace\\\\Acceso\\\\src\\\\close.png"; 
+        ImageIcon icono4 = new ImageIcon(rutaImagen4);
+        Image imagenEscalada4 = icono4.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        ImageIcon iconoEscalado4 = new ImageIcon(imagenEscalada4);
+        JButton btnEliminar = new JButton("Eliminar",iconoEscalado4);
+        btnEliminar.setBackground(Color.RED);
+        btnEliminar.setForeground(Color.WHITE);
+        btnEliminar.setFont(customFont.deriveFont(Font.PLAIN, 15)); 
+        panelBotones1.add(btnEliminar);
 
         panelBotones1.add(btnAgregar);
         panelBotones1.add(btnEditar);
@@ -500,39 +658,86 @@ public class Restaurante {
         JPanel panelOrden = new JPanel(new BorderLayout());
         panelContainer.add(panelOrden, "panelOrden");
         
-        // Tabla de Órdenes
+
         modelOrden = new DefaultTableModel(new Object[]{"Platillo", "Cantidad", "Precio", "Total"}, 0);
         tablaOrden = new JTable(modelOrden);
+        tablaOrden.setForeground(Color.WHITE);
+        tablaOrden.setBackground(new Color(204, 153, 51));
         panelOrden.add(new JScrollPane(tablaOrden), BorderLayout.CENTER);
+        
+        modelOrden.addColumn("Seleccionar");
+        ButtonGroup buttonGroup1 = new ButtonGroup();
 
-
+        for (int i = 0; i < modelOrden.getRowCount(); i++) {
+            JRadioButton radioButton = new JRadioButton();
+            buttonGroup1.add(radioButton);
+            modelOrden.setValueAt(radioButton, i, modelOrden.getColumnCount() - 1);
+        }
+        
         JPanel datosa = new JPanel(new GridLayout(3, 2, 10, 10));
+        datosa.setBackground(new Color(204, 153, 51));
         JTextField txtNombreCliente = new JTextField();
-        JLabel lblTotal = new JLabel("Total: $0.00");
-        lblTotalPlatillos = new JLabel("Total de platillos: 0");
-        datosa.add(new JLabel("Nombre del cliente:"));
-        datosa.add(txtNombreCliente);
-        datosa.add(new JLabel("Total:"));
+
+        lblTotal = new JLabel("Total: $0.00");
+        lblTotal.setForeground(Color.WHITE);
+        lblTotal.setFont(customFont.deriveFont(Font.PLAIN, 15)); 
         datosa.add(lblTotal);
-        datosa.add(new JLabel("Total de platillos:"));
+
+         lblTotalPlatillos = new JLabel("Total de platillos: 0");
+         lblTotalPlatillos.setForeground(Color.WHITE);
+        lblTotalPlatillos.setFont(customFont.deriveFont(Font.PLAIN, 15)); 
         datosa.add(lblTotalPlatillos);
+
+        JLabel lblNombreCliente = new JLabel("Nombre del cliente:");
+        lblNombreCliente.setForeground(Color.WHITE);
+        lblNombreCliente.setFont(customFont.deriveFont(Font.PLAIN, 15)); 
+        datosa.add(lblNombreCliente);
+
+        
+
+        datosa.add(txtNombreCliente);
         panelOrden.add(datosa, BorderLayout.NORTH);
 
         JPanel botonesg = new JPanel(new FlowLayout());
-        JButton btnAgregarPlatilloOrden = new JButton("Agregar Platillo");
+        botonesg.setBackground(new Color(204, 153, 0));
+        String rutaImagen7 = "C:\\\\Users\\\\Asus\\\\eclipse-workspace\\\\Acceso\\\\src\\\\plus.png"; 
+        ImageIcon icono7 = new ImageIcon(rutaImagen7);
+        Image imagenEscalada7 = icono7.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        ImageIcon iconoEscalado7 = new ImageIcon(imagenEscalada7);
+        JButton btnAgregarPlatilloOrden = new JButton("Agregar Platillo", iconoEscalado7);
+        btnAgregarPlatilloOrden.setBackground(new Color(204, 153, 0));
+        btnAgregarPlatilloOrden.setForeground(Color.WHITE);
+        btnAgregarPlatilloOrden.setFont(customFont.deriveFont(Font.PLAIN, 15)); 
+        botonesg.add(btnAgregarPlatilloOrden);
+        
         JButton btnEditarPlatilloOrden = new JButton("Editar Platillo");
-        JButton btnEliminarPlatilloOrden = new JButton("Eliminar Platillo");
+        btnEditarPlatilloOrden.setForeground(Color.WHITE);
+        btnEditarPlatilloOrden.setBackground(new Color(204, 153, 0));
+        btnEditarPlatilloOrden.setFont(customFont.deriveFont(Font.PLAIN, 15)); 
+        botonesg.add(btnEditarPlatilloOrden);
+        String rutaImagen1 = "C:\\\\Users\\\\Asus\\\\eclipse-workspace\\\\Acceso\\\\src\\\\close.png"; 
+        ImageIcon icono1 = new ImageIcon(rutaImagen1);
+        Image imagenEscalada1 = icono1.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        ImageIcon iconoEscalado1 = new ImageIcon(imagenEscalada1);
+        JButton btnEliminarPlatilloOrden1 = new JButton("Eliminar Platillo", iconoEscalado1);
+        btnEliminarPlatilloOrden1.setForeground(Color.WHITE);
+        btnEliminarPlatilloOrden1.setBackground(Color.RED);
+        btnEliminarPlatilloOrden1.setFont(customFont.deriveFont(Font.PLAIN, 15)); 
         botonesg.add(btnAgregarPlatilloOrden);
         botonesg.add(btnEditarPlatilloOrden);
-        botonesg.add(btnEliminarPlatilloOrden);
+        botonesg.add(btnEliminarPlatilloOrden1);
         panelOrden.add(botonesg, BorderLayout.SOUTH);
 
      
         btnAgregarPlatilloOrden.addActionListener(e -> agregarPlatilloOrden());
         btnEditarPlatilloOrden.addActionListener(e -> editarPlatilloOrden());
-        btnEliminarPlatilloOrden.addActionListener(e -> eliminarPlatilloOrden());
+        btnEliminarPlatilloOrden1.addActionListener(e -> eliminarPlatilloOrden());
  
+        
         JButton btnImprimirComanda = new JButton("Imprimir Comanda");
+        btnImprimirComanda.setForeground(Color.WHITE);
+        btnImprimirComanda.setBackground(new Color(204, 153, 0));
+        btnImprimirComanda.setFont(customFont.deriveFont(Font.PLAIN, 15)); 
         botonesg.add(btnImprimirComanda);
 
         btnImprimirComanda.addActionListener(e -> {
@@ -554,7 +759,7 @@ public class Restaurante {
             }
         });
         
-        // Menú de Órdenes
+        // Menu de Ordenes
         JMenuItem ordenMenuItem = new JMenuItem("Orden");
         menuOrdenes.add(ordenMenuItem);
         ordenMenuItem.addActionListener(e -> {
@@ -610,7 +815,7 @@ public class Restaurante {
                         return true;
                     }
                 } else {
-                    System.err.println("Error: formato de línea incorrecto en archivo usuarios.txt: " + linea);
+                    System.err.println("Error: formato de linea incorrecto en archivo usuarios.txt: " + linea);
                 }
             }
         } catch (IOException ex) {
@@ -666,26 +871,31 @@ public class Restaurante {
 
     private void editarPlatillo() {
         int filaSeleccionada = tablaPlatillos.getSelectedRow();
-
         if (filaSeleccionada >= 0) {
-            String nombreAnterior = (String) modelTablaPlatillos.getValueAt(filaSeleccionada, 0);
-            String descripcionAnterior = (String) modelTablaPlatillos.getValueAt(filaSeleccionada, 1);
-
             String nombre = txtNombrePlatillo.getText().trim();
             String descripcion = txtDescripcionPlatillo.getText().trim();
             String categoria = txtCategoriaPlatilo.getText().trim();
-            double precio = Double.parseDouble(txtPrecioPlatillo.getText().trim());
+            double precio = 0.0;
 
-            modelTablaPlatillos.setValueAt(nombre, filaSeleccionada, 0);
-            modelTablaPlatillos.setValueAt(descripcion, filaSeleccionada, 1);
-            modelTablaPlatillos.setValueAt(categoria, filaSeleccionada, 2);
-            modelTablaPlatillos.setValueAt(precio, filaSeleccionada, 3);
-
-            limpiarCamposNuevoPlatillo();
-
-            JOptionPane.showMessageDialog(frame, "El platillo \"" + nombreAnterior + "\" (Descripción: " + descripcionAnterior + ") ha sido editado.");
+            if (!nombre.isEmpty() && !descripcion.isEmpty() && !categoria.isEmpty()) {
+                try {
+                    precio = Double.parseDouble(txtPrecioPlatillo.getText().trim());
+                    modelTablaPlatillos.setValueAt(nombre, filaSeleccionada, 0);
+                    modelTablaPlatillos.setValueAt(descripcion, filaSeleccionada, 1);
+                    modelTablaPlatillos.setValueAt(categoria, filaSeleccionada, 2);
+                    modelTablaPlatillos.setValueAt(precio, filaSeleccionada, 3);
+                    limpiarCamposNuevoPlatillo();
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(frame, "El precio ingresado no es válido.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(frame, "Por favor, completa todos los campos obligatorios.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(frame, "Selecciona un platillo para editar.");
         }
     }
+
 
     private void eliminarPlatillo() {
         int filaSeleccionada = tablaPlatillos.getSelectedRow();
@@ -717,28 +927,62 @@ public class Restaurante {
     
     private void agregarPlatilloOrden() {
         int filaSeleccionada = tablaPlatillos.getSelectedRow();
-
         if (filaSeleccionada >= 0) {
-            String nombrePlatillo = (String) modelTablaPlatillos.getValueAt(filaSeleccionada, 0);
-            double precioPlatillo = (double) modelTablaPlatillos.getValueAt(filaSeleccionada, 3);
+            JRadioButton radioButton = (JRadioButton) tablaPlatillos.getValueAt(filaSeleccionada, modelTablaPlatillos.getColumnCount() - 1);
+            if (radioButton.isSelected()) {
+                String nombrePlatillo = (String) tablaPlatillos.getValueAt(filaSeleccionada, 0);
+                double precioPlatillo = (double) tablaPlatillos.getValueAt(filaSeleccionada, 3);
 
-            modelOrden.addRow(new Object[]{nombrePlatillo, 1, precioPlatillo, precioPlatillo});
-            actualizarTotal();
+                    boolean existeOrden = false;
+                    for (int i = 0; i < modelOrden.getRowCount(); i++) {
+                        if (modelOrden.getValueAt(i, 0).equals(nombrePlatillo)) {
+                            int cantidadActual = (int) modelOrden.getValueAt(i, 1);
+                            modelOrden.setValueAt(cantidadActual + 1, i, 1);
+                            modelOrden.setValueAt((cantidadActual + 1) * precioPlatillo, i, 3);
+                            existeOrden = true;
+                            break;
+                        }
+                    }
 
-            JOptionPane.showMessageDialog(frame, "El platillo \"" + nombrePlatillo + "\" ha sido agregado a la orden.");
+                    if (!existeOrden) {
+                        modelOrden.addRow(new Object[]{nombrePlatillo, 1, precioPlatillo, precioPlatillo});
+                    }
+
+                    actualizarTotal();
+
+                guardarPlatilloEnArchivo(nombrePlatillo, precioPlatillo);
+                JOptionPane.showMessageDialog(frame, "El platillo \"" + nombrePlatillo + "\" ha sido agregado a la orden.");
+            } else {
+                JOptionPane.showMessageDialog(frame, "Selecciona un platillo para agregar a la orden.");
+            }
         } else {
             JOptionPane.showMessageDialog(frame, "Selecciona un platillo para agregar a la orden.");
         }
     }
+    
 
+    
     private void editarPlatilloOrden() {
         int filaSeleccionada = tablaOrden.getSelectedRow();
+
         if (filaSeleccionada >= 0) {
-            int cantidad = Integer.parseInt(JOptionPane.showInputDialog("Ingresa la nueva cantidad:"));
-            double precioUnitario = (double) modelOrden.getValueAt(filaSeleccionada, 2);
-            modelOrden.setValueAt(cantidad, filaSeleccionada, 1);
-            modelOrden.setValueAt(cantidad * precioUnitario, filaSeleccionada, 3);
-            actualizarTotal();
+            String ingresarCantidad = JOptionPane.showInputDialog("Ingresa la nueva cantidad:");
+
+            if (ingresarCantidad != null && !ingresarCantidad.isEmpty()) {
+                try {
+                    int cantidad = Integer.parseInt(ingresarCantidad);
+                    double precioUnitario = (double) modelOrden.getValueAt(filaSeleccionada, 2);
+
+                    modelOrden.setValueAt(cantidad, filaSeleccionada, 1);
+                    modelOrden.setValueAt(cantidad * precioUnitario, filaSeleccionada, 3);
+
+                    actualizarTotal();
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(frame, "Por favor, ingresa una cantidad válida.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(frame, "Operación cancelada.");
+            }
         } else {
             JOptionPane.showMessageDialog(frame, "Selecciona un platillo de la orden para editar.");
         }
@@ -746,15 +990,53 @@ public class Restaurante {
 
     private void eliminarPlatilloOrden() {
         int filaSeleccionada = tablaOrden.getSelectedRow();
-
         if (filaSeleccionada >= 0) {
-            String nombrePlatillo = (String) modelOrden.getValueAt(filaSeleccionada, 0);
-            modelOrden.removeRow(filaSeleccionada);
-            actualizarTotal();
-
-            JOptionPane.showMessageDialog(frame, "El platillo \"" + nombrePlatillo + "\" ha sido eliminado de la orden.");
+            JCheckBox checkBox = (JCheckBox) modelOrden.getValueAt(filaSeleccionada, modelOrden.getColumnCount() - 1);
+            if (checkBox.isSelected()) {
+                String nombrePlatillo = (String) modelOrden.getValueAt(filaSeleccionada, 0);
+                modelOrden.removeRow(filaSeleccionada);
+                actualizarTotal();
+                eliminarPlatilloDeArchivo(nombrePlatillo);
+                JOptionPane.showMessageDialog(frame, "El platillo \"" + nombrePlatillo + "\" ha sido eliminado de la orden.");
+            } else {
+                JOptionPane.showMessageDialog(frame, "Selecciona un platillo de la orden para eliminar.");
+            }
         } else {
             JOptionPane.showMessageDialog(frame, "Selecciona un platillo de la orden para eliminar.");
+        }
+    }
+
+    private void eliminarPlatilloDeArchivo(String nombrePlatillo) {
+        try {
+            File file = new File("Comandas.txt");
+            File tempFile = new File("temp.txt");
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (!parts[0].equals(nombrePlatillo)) {
+                    writer.write(line);
+                    writer.newLine();
+                }
+            }
+
+            reader.close();
+            writer.close();
+            file.delete();
+            tempFile.renameTo(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void guardarPlatilloEnArchivo(String nombrePlatillo, double precioPlatillo) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("Comandas.txt", true))) {
+            writer.write(nombrePlatillo + "," + precioPlatillo);
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -767,12 +1049,10 @@ public class Restaurante {
             int cantidad = (int) modelOrden.getValueAt(i, 1);
             double precio = (double) modelOrden.getValueAt(i, 2);
             total += cantidad * precio;
-            if (cantidad > 0) {
-                totalPlatillos++;
-            }
+            totalPlatillos += cantidad;
         }
 
-        txtTota.setText("Total: $" + String.format("%.2f", total));
+        lblTotal.setText("Total: $" + String.format("%.2f", total));
         lblTotalPlatillos.setText("Total de platillos: " + totalPlatillos);
     }
     
