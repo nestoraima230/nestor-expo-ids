@@ -1,0 +1,7 @@
+Comanda
+
+Cliente: Alvaro
+
+Hamburguesa          x  1 $100,00 $100,00
+
+Total: $$100,00

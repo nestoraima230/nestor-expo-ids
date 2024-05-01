@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Timer;
 
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
@@ -47,6 +48,8 @@ import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.ImageIcon;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JTextPane;
 import javax.swing.JScrollBar;
 import java.awt.event.ActionListener;
@@ -88,6 +91,7 @@ public class Restaurante {
     private JLabel lblTotal;
     private JLabel lblTotalPlatillos;
     private JPanel registroPanel;
+    private JTextField txtNombreCliente;
 
     /**
      * Launch the application.
@@ -120,7 +124,7 @@ public class Restaurante {
     private void initialize() {
     	
     	try {
-    	    Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("C:\\Users\\Asus\\Downloads\\Blackboard Restaurant.otf")).deriveFont(12f);
+    	    Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("C:\\Users\\Asus\\eclipse-workspace\\Acceso\\src\\font\\Blackboard Restaurant.otf")).deriveFont(12f);
     	    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
     	    ge.registerFont(customFont);
     	} catch (Exception e) {
@@ -142,7 +146,7 @@ public class Restaurante {
         menuInicioPanel.setBackground(new Color(34, 139, 34));
         menuInicioPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         menuInicioPanel.setLayout(null);
-
+  
         Font customFont = new Font("Blackboard Restaurant", Font.PLAIN, 12); 
         JLabel tituloLabel = new JLabel("Bienvenido", SwingConstants.CENTER);
         tituloLabel.setBounds(208, 36, 455, 69);
@@ -165,11 +169,20 @@ public class Restaurante {
         lblNewLabel_9.setIcon(new ImageIcon("C:\\Users\\Asus\\eclipse-workspace\\Acceso\\src\\icons8-user-50.png"));
         lblNewLabel_9.setFont(customFont.deriveFont(Font.BOLD, 18));
         
-        JButton btnNewButton_2 =  new RoundedButton("Cerrar sesion");
+        JButton btnNewButton_2 = new RoundedButton("Cerrar sesión");
         btnNewButton_2.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
+            public void actionPerformed(ActionEvent e) {
+            	
+            	if(usuarioAutenticado) {
+                    int respuesta = JOptionPane.showConfirmDialog(frame, "¿Estás seguro de que deseas cerrar la sesión?", "Cerrar sesión", JOptionPane.YES_NO_OPTION);
+                    if (respuesta == JOptionPane.YES_OPTION) {
+                        frame.dispose(); 
+                    }           		
+            	}
+
+            }
         });
+
         btnNewButton_2.setForeground(Color.WHITE);
         btnNewButton_2.setBackground(Color.RED);
         btnNewButton_2.setBounds(10, 480, 114, 23);
@@ -186,27 +199,65 @@ public class Restaurante {
         menuInicioPanel.add(panel_3);
         panel_3.setLayout(null);
         
-        String rutaImagen2 = "C:\\Users\\Asus\\eclipse-workspace\\Acceso\\src\\descarga.png";
-        ImageIcon icono2 = new ImageIcon(rutaImagen2);
-        Image imagenEscalada2 = icono2.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-        ImageIcon iconoEscalado2 = new ImageIcon(imagenEscalada2);
-        JLabel lblNewLabel_18 = new JLabel(iconoEscalado2);
-        lblNewLabel_18.setBounds(208, 169, 526, 248);
-        menuInicioPanel.add(lblNewLabel_18);
+        String rutaImagen13 = "C:\\\\Users\\\\Asus\\\\eclipse-workspace\\\\Acceso\\\\src\\\\mail.png"; 
+        ImageIcon icono13 = new ImageIcon(rutaImagen13);
+        Image imagenEscalada13 = icono13.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        ImageIcon iconoEscalado13 = new ImageIcon(imagenEscalada13);
+        JLabel lblNewLabel_20 = new JLabel(iconoEscalado13);
+        lblNewLabel_20.setForeground(Color.WHITE);
+        lblNewLabel_20.setText("Esquina-9161@gmail.com");
+        lblNewLabel_20.setBounds(44, 41, 184, 20);
+        panel_3.add(lblNewLabel_20);
         
-        String rutaImagen3 = "C:\\Users\\Asus\\eclipse-workspace\\Acceso\\src\\8b96e3f0723c96f3f4bfeb467bb593ee-removebg-preview.png";
+        String rutaImagen14 = "C:\\\\Users\\\\Asus\\\\eclipse-workspace\\\\Acceso\\\\src\\\\facebook.png"; 
+        ImageIcon icono14 = new ImageIcon(rutaImagen14);
+        Image imagenEscalada14 = icono14.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        ImageIcon iconoEscalado14 = new ImageIcon(imagenEscalada14);
+        JLabel lblNewLabel_19 = new JLabel(iconoEscalado14);
+        lblNewLabel_19.setBounds(372, 60, 46, 20);
+        panel_3.add(lblNewLabel_19);
+        
 
+        String rutaImagen15 = "C:\\Users\\Asus\\eclipse-workspace\\Acceso\\src\\instagram.png"; 
+        ImageIcon icono15 = new ImageIcon(rutaImagen15);
+        Image imagenEscalada15 = icono15.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        ImageIcon iconoEscalado15 = new ImageIcon(imagenEscalada15);
+        JLabel lblNewLabel_19_1 = new JLabel(iconoEscalado15);
+        lblNewLabel_19_1.setBounds(316, 60, 46, 20);
+        panel_3.add(lblNewLabel_19_1);
+        
+        String rutaImagen16 = "C:\\\\Users\\\\Asus\\\\eclipse-workspace\\\\Acceso\\\\src\\\\twitter.png"; 
+        ImageIcon icono16 = new ImageIcon(rutaImagen16);
+        Image imagenEscalada16 = icono16.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        ImageIcon iconoEscalado16 = new ImageIcon(imagenEscalada16);
+        JLabel lblNewLabel_19_2 = new JLabel(iconoEscalado16);
+        lblNewLabel_19_2.setBounds(428, 60, 46, 20);
+        panel_3.add(lblNewLabel_19_2);
+        
+        JLabel lblNewLabel_21 = new JLabel("Siguenos:");
+        lblNewLabel_21.setForeground(Color.WHITE);
+        lblNewLabel_21.setBounds(332, 24, 104, 14);
+        panel_3.add(lblNewLabel_21);
+       
+      
+        String rutaImagen3 = "C:\\Users\\Asus\\eclipse-workspace\\Acceso\\src\\8b96e3f0723c96f3f4bfeb467bb593ee-removebg-preview.png";
         ImageIcon icono3 = new ImageIcon(rutaImagen3);
-        Image imagenEscalada3 = icono3.getImage().getScaledInstance(5000, 5000, Image.SCALE_SMOOTH);
+        Image imagenEscalada3 = icono3.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
         ImageIcon iconoEscalado3 = new ImageIcon(imagenEscalada3);
         JLabel lblNewLabel_18_1 = new JLabel(iconoEscalado3);
         lblNewLabel_18_1.setBounds(547, 17, 151, 88);
         menuInicioPanel.add(lblNewLabel_18_1);
+        
+        JLabel lblNewLabel_18 = new JLabel("");
+        lblNewLabel_18.setIcon(new ImageIcon("C:\\Users\\Asus\\eclipse-workspace\\Acceso\\src\\laesquina.png"));
+        lblNewLabel_18.setBounds(240, 145, 498, 216);
+        menuInicioPanel.add(lblNewLabel_18);
 
         panel.add(panelContainer, BorderLayout.CENTER);
 
         JMenuBar menuBar = new JMenuBar();
         JMenu menuAcceso = new JMenu("Acceso/Salir");
+        menuAcceso.setSelectedIcon(new ImageIcon("C:\\Users\\Asus\\eclipse-workspace\\Acceso\\src\\vector-users-icon.jpg"));
         JMenu menuPlatillos = new JMenu("Platillos");
         JMenu menuOrdenes = new JMenu("Órdenes");
 
@@ -336,9 +387,12 @@ public class Restaurante {
         miCuentaPanel.add(textField_5);
         textField_5.setColumns(10);
         
-        JLabel lblNewLabel_13 = new JLabel("");
-        lblNewLabel_13.setIcon(new ImageIcon("C:\\Users\\Asus\\eclipse-workspace\\Acceso\\src\\vector-users-icon.jpg"));
-        lblNewLabel_13.setBounds(520, 40, 102, 148);
+        String rutaImagen12 = "C:\\\\Users\\\\Asus\\\\eclipse-workspace\\\\Acceso\\\\src\\\\R (1).png"; 
+        ImageIcon icono12 = new ImageIcon(rutaImagen12);
+        Image imagenEscalada12 = icono12.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+        ImageIcon iconoEscalado12 = new ImageIcon(imagenEscalada12);
+        JLabel lblNewLabel_13 = new JLabel(iconoEscalado12);
+        lblNewLabel_13.setBounds(505, 57, 219, 248);
         miCuentaPanel.add(lblNewLabel_13);
         
         JLabel lblNewLabel_14 = new JLabel("DATOS GENERALES");
@@ -373,9 +427,13 @@ public class Restaurante {
         passwordField_3.setBounds(147, 182, 148, 20);
         miCuentaPanel.add(passwordField_3);
         
-        JButton btnNewButton_3 = new JButton("Editar datos");
+        String rutaImagen8 = "C:\\\\Users\\\\Asus\\\\eclipse-workspace\\\\Acceso\\\\src\\\\edit.png"; 
+        ImageIcon icono8 = new ImageIcon(rutaImagen8);
+        Image imagenEscalada8 = icono8.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        ImageIcon iconoEscalado8 = new ImageIcon(imagenEscalada8);
+        JButton btnNewButton_3= new JButton("Editar", iconoEscalado8);
         btnNewButton_3.setBackground(Color.ORANGE);
-        btnNewButton_3.setBounds(520, 354, 114, 23);
+        btnNewButton_3.setBounds(505, 363, 114, 23);
         btnNewButton_3.setFont(customFont.deriveFont(Font.PLAIN, 13));  
         miCuentaPanel.add(btnNewButton_3);
 
@@ -618,7 +676,11 @@ public class Restaurante {
         btnAgregar.setForeground(Color.WHITE);
         btnAgregar.setFont(customFont.deriveFont(Font.PLAIN, 15)); 
         panelBotones1.add(btnAgregar);
-        JButton btnEditar = new JButton("Editar");
+        String rutaImagen9 = "C:\\\\Users\\\\Asus\\\\eclipse-workspace\\\\Acceso\\\\src\\\\edit.png"; 
+        ImageIcon icono9 = new ImageIcon(rutaImagen9);
+        Image imagenEscalada9 = icono9.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        ImageIcon iconoEscalado9 = new ImageIcon(imagenEscalada9);
+        JButton btnEditar= new JButton("Editar Platillo", iconoEscalado9);        
         btnEditar.setBackground(new Color(0, 153, 0));
         btnEditar.setForeground(Color.WHITE);
         btnEditar.setFont(customFont.deriveFont(Font.PLAIN, 15)); 
@@ -676,15 +738,15 @@ public class Restaurante {
         
         JPanel datosa = new JPanel(new GridLayout(3, 2, 10, 10));
         datosa.setBackground(new Color(204, 153, 51));
-        JTextField txtNombreCliente = new JTextField();
-
+        txtNombreCliente = new JTextField();
+    
         lblTotal = new JLabel("Total: $0.00");
         lblTotal.setForeground(Color.WHITE);
         lblTotal.setFont(customFont.deriveFont(Font.PLAIN, 15)); 
         datosa.add(lblTotal);
 
-         lblTotalPlatillos = new JLabel("Total de platillos: 0");
-         lblTotalPlatillos.setForeground(Color.WHITE);
+        lblTotalPlatillos = new JLabel("Total de platillos: 0");
+        lblTotalPlatillos.setForeground(Color.WHITE);
         lblTotalPlatillos.setFont(customFont.deriveFont(Font.PLAIN, 15)); 
         datosa.add(lblTotalPlatillos);
 
@@ -692,9 +754,7 @@ public class Restaurante {
         lblNombreCliente.setForeground(Color.WHITE);
         lblNombreCliente.setFont(customFont.deriveFont(Font.PLAIN, 15)); 
         datosa.add(lblNombreCliente);
-
         
-
         datosa.add(txtNombreCliente);
         panelOrden.add(datosa, BorderLayout.NORTH);
 
@@ -710,7 +770,11 @@ public class Restaurante {
         btnAgregarPlatilloOrden.setFont(customFont.deriveFont(Font.PLAIN, 15)); 
         botonesg.add(btnAgregarPlatilloOrden);
         
-        JButton btnEditarPlatilloOrden = new JButton("Editar Platillo");
+        String rutaImagen10 = "C:\\\\Users\\\\Asus\\\\eclipse-workspace\\\\Acceso\\\\src\\\\edit.png"; 
+        ImageIcon icono10 = new ImageIcon(rutaImagen10);
+        Image imagenEscalada10 = icono10.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        ImageIcon iconoEscalado10 = new ImageIcon(imagenEscalada10);
+        JButton btnEditarPlatilloOrden= new JButton("Editar platillo", iconoEscalado10);
         btnEditarPlatilloOrden.setForeground(Color.WHITE);
         btnEditarPlatilloOrden.setBackground(new Color(204, 153, 0));
         btnEditarPlatilloOrden.setFont(customFont.deriveFont(Font.PLAIN, 15)); 
@@ -734,7 +798,11 @@ public class Restaurante {
         btnEliminarPlatilloOrden1.addActionListener(e -> eliminarPlatilloOrden());
  
         
-        JButton btnImprimirComanda = new JButton("Imprimir Comanda");
+        String rutaImagen11 = "C:\\\\Users\\\\Asus\\\\eclipse-workspace\\\\Acceso\\\\src\\\\printer.png"; 
+        ImageIcon icono11 = new ImageIcon(rutaImagen11);
+        Image imagenEscalada11 = icono11.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        ImageIcon iconoEscalado11 = new ImageIcon(imagenEscalada11);
+        JButton btnImprimirComanda= new JButton("Imprimir Comanda", iconoEscalado11);
         btnImprimirComanda.setForeground(Color.WHITE);
         btnImprimirComanda.setBackground(new Color(204, 153, 0));
         btnImprimirComanda.setFont(customFont.deriveFont(Font.PLAIN, 15)); 
@@ -744,6 +812,10 @@ public class Restaurante {
             try {
                 FileWriter writer = new FileWriter("comanda.txt");
                 writer.write("Comanda\n\n");
+                
+                String nombreCliente = txtNombreCliente.getText();
+                writer.write("Cliente: " + nombreCliente + "\n\n");
+                
                 for (int i = 0; i < modelOrden.getRowCount(); i++) {
                     String platillo = (String) modelOrden.getValueAt(i, 0);
                     int cantidad = (int) modelOrden.getValueAt(i, 1);
@@ -751,13 +823,16 @@ public class Restaurante {
                     double total = (double) modelOrden.getValueAt(i, 3);
                     writer.write(String.format("%-20s x %2d $%6.2f $%6.2f\n", platillo, cantidad, precio, total));
                 }
+                
                 writer.write("\nTotal: $" + lblTotal.getText().substring(7));
                 writer.close();
+                
                 JOptionPane.showMessageDialog(frame, "Comanda guardada en el archivo comanda.txt");
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(frame, "Error al guardar la comanda: " + ex.getMessage());
             }
         });
+
         
         // Menu de Ordenes
         JMenuItem ordenMenuItem = new JMenuItem("Orden");
@@ -844,20 +919,19 @@ public class Restaurante {
     }
 
 
+    //TIENE ERRORES
 
     private void agregarPlatillo() {
         String nombre = txtNombrePlatillo.getText().trim();
         String descripcion = txtDescripcionPlatillo.getText().trim();
         String categoria = txtCategoriaPlatilo.getText().trim();
         double precio = 0.0;
-        String rutaImagen = null;
 
         if (!nombre.isEmpty() && !descripcion.isEmpty() && !categoria.isEmpty()) {
             try {
                 precio = Double.parseDouble(txtPrecioPlatillo.getText().trim());
-                rutaImagen = seleccionarRutaImagen();
 
-                modelTablaPlatillos.addRow(new Object[]{nombre, descripcion, categoria, precio, rutaImagen != null ? new ImageIcon(rutaImagen) : null});
+                modelTablaPlatillos.addRow(new Object[]{nombre, descripcion, categoria, precio});
                 limpiarCamposNuevoPlatillo();
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(frame, "El precio ingresado no es válido.");
@@ -925,6 +999,7 @@ public class Restaurante {
         return null;
     }
     
+    //TIENE ERRORES
     private void agregarPlatilloOrden() {
         int filaSeleccionada = tablaPlatillos.getSelectedRow();
         if (filaSeleccionada >= 0) {
@@ -933,24 +1008,25 @@ public class Restaurante {
                 String nombrePlatillo = (String) tablaPlatillos.getValueAt(filaSeleccionada, 0);
                 double precioPlatillo = (double) tablaPlatillos.getValueAt(filaSeleccionada, 3);
 
-                    boolean existeOrden = false;
-                    for (int i = 0; i < modelOrden.getRowCount(); i++) {
-                        if (modelOrden.getValueAt(i, 0).equals(nombrePlatillo)) {
-                            int cantidadActual = (int) modelOrden.getValueAt(i, 1);
-                            modelOrden.setValueAt(cantidadActual + 1, i, 1);
-                            modelOrden.setValueAt((cantidadActual + 1) * precioPlatillo, i, 3);
-                            existeOrden = true;
-                            break;
-                        }
+                boolean existeOrden = false;
+                for (int i = 0; i < modelOrden.getRowCount(); i++) {
+                    if (modelOrden.getValueAt(i, 0).equals(nombrePlatillo)) {
+                        int cantidadActual = (int) modelOrden.getValueAt(i, 1);
+                        modelOrden.setValueAt(cantidadActual + 1, i, 1);
+                        modelOrden.setValueAt((cantidadActual + 1) * precioPlatillo, i, 3);
+                        existeOrden = true;
+                        break;
                     }
+                }
 
-                    if (!existeOrden) {
-                        modelOrden.addRow(new Object[]{nombrePlatillo, 1, precioPlatillo, precioPlatillo});
-                    }
+                if (!existeOrden) {
+                    modelOrden.addRow(new Object[]{nombrePlatillo, 1, precioPlatillo, precioPlatillo});
+                }
 
-                    actualizarTotal();
+                actualizarTotal();
 
-                guardarPlatilloEnArchivo(nombrePlatillo, precioPlatillo);
+                guardarPlatilloEnArchivo(txtNombreCliente.getText(), nombrePlatillo, precioPlatillo);
+
                 JOptionPane.showMessageDialog(frame, "El platillo \"" + nombrePlatillo + "\" ha sido agregado a la orden.");
             } else {
                 JOptionPane.showMessageDialog(frame, "Selecciona un platillo para agregar a la orden.");
@@ -959,6 +1035,7 @@ public class Restaurante {
             JOptionPane.showMessageDialog(frame, "Selecciona un platillo para agregar a la orden.");
         }
     }
+
     
 
     
@@ -1031,9 +1108,9 @@ public class Restaurante {
         }
     }
     
-    private void guardarPlatilloEnArchivo(String nombrePlatillo, double precioPlatillo) {
+    private void guardarPlatilloEnArchivo(String nombreUsuario, String nombrePlatillo, double precioPlatillo) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("Comandas.txt", true))) {
-            writer.write(nombrePlatillo + "," + precioPlatillo);
+            writer.write(nombreUsuario + "," + nombrePlatillo + "," + precioPlatillo);
             writer.newLine();
         } catch (IOException e) {
             e.printStackTrace();

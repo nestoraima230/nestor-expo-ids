@@ -9,7 +9,12 @@ class RoundedButton extends JButton {
         setContentAreaFilled(false);
     }
 
-    @Override
+    public RoundedButton(String label, ImageIcon iconoEscalado8) {
+        super(label);
+        setContentAreaFilled(false);
+	}
+
+	@Override
     protected void paintComponent(Graphics g) {
         if (getModel().isArmed()) {
             g.setColor(Color.lightGray);
