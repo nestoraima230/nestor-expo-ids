@@ -28,7 +28,7 @@ public class AuthView {
 	    frame = new JFrame();
 	    frame.setBounds(100, 100, 500, 600);         
 	    frame.setVisible(true); 
-	    authController = new AuthController(this); 
+	    authController = new AuthController(this, authModel); 
 	    loginListener = authController.new LoginListener(); 
 	    login(); 
 	    registro();

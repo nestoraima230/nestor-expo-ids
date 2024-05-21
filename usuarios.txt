@@ -4,3 +4,4 @@ Alvaro,666,fran,Alvarado
 Alvaro,0000,a,Alvarado
 Nestor,1234,qwe,Arce
 Fernando,789,rtuo,Pedrera
+Alvaro,123,asdf,Alvarado
